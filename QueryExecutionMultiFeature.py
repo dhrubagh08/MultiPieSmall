@@ -2235,7 +2235,7 @@ def adaptiveOrder8(timeBudget):
 	
 	
 	
-	blockList = [100]
+	blockList = [200]
 	executionPerformed = 0
 	thinkTimeList = []
 	executionTimeList = []
@@ -3703,9 +3703,9 @@ if __name__ == '__main__':
 	#adaptiveOrder7(200)
 	setupFeature1()
 	setupFeature2()
-	#adaptiveOrder8(400)
-	baseline3(600)
-	baseline4(600)
+	adaptiveOrder8(600)
+	#baseline3(600)
+	#baseline4(600)
 	#adaptiveOrder9(400)
 	#runOneClassifier()
 	#adaptiveOrder9(400)	
