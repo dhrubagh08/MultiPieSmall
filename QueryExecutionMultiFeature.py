@@ -28,12 +28,18 @@ warnings.filterwarnings("ignore")
 f1 = open('QueryExecutionResult.txt','w+')
 
 #dl,nl = pickle.load(open('MuctTestGender6_XY.p','rb'))
-dl,nl = pickle.load(open('MultiPieTestGender8_XY.p','rb'))
-dl2,nl2 = pickle.load(open('MultiPieTestExpression8_XY.p','rb'))
-print>>f1,"gender objects: {}".format(nl)
-print>>f1,"expression objects: {}".format(nl2)
+#dl,nl = pickle.load(open('MultiPieTestGender8_XY.p','rb'))
+#dl2,nl2 = pickle.load(open('MultiPieTestExpression8_XY.p','rb'))
 
-dl2=[]
+dl4,nl4 = pickle.load(open('MultiPieTestGender8_XY.p','rb'))
+dl3,nl3 = pickle.load(open('MultiPieTestExpression8_XY.p','rb'))
+dl,nl = [],[]
+
+#print>>f1,"gender objects: {}".format(nl)
+#print>>f1,"expression objects: {}".format(nl2)
+
+#dl2=[]
+dl3=[]
 sys.setrecursionlimit(1500)
 
 gender_gnb = pickle.load(open('gender_multipie_gnb_calibrated.p', 'rb'))
@@ -71,10 +77,11 @@ rf_tprs, gnb_tprs, et_tprs,  svm_tprs = [], [] ,[], []
 rf_fprs, gnb_fprs, et_fprs, svm_fprs  = [], [] ,[], []
 rf_probabilities, gnb_probabilities, et_probabilities, svm_probabilities = [], [], [], []
 
-
+'''
 dl = np.array(dl)
 nl = np.array(nl)
 nl2= np.array(nl2)
+'''
 #listInitial,list0,list1,list2,list3,list01,list02,list03,list12,list13,list23,list012,list013,list023,list123=[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
 listInitial_f1,list0_f1,list1_f1,list2_f1,list3_f1,list01_f1,list02_f1,list03_f1,list12_f1,list13_f1,list23_f1,list012_f1,list013_f1,list023_f1,list123_f1=[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
 listInitial_f2,list0_f2,list1_f2,list2_f2,list3_f2,list01_f2,list02_f2,list03_f2,list12_f2,list13_f2,list23_f2,list012_f2,list013_f2,list023_f2,list123_f2=[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
@@ -2235,7 +2242,8 @@ def adaptiveOrder8(timeBudget):
 	
 	
 	
-	blockList = [200]
+	#blockList = [200]
+	blockList = [60]
 	executionPerformed = 0
 	thinkTimeList = []
 	executionTimeList = []
@@ -2338,8 +2346,8 @@ def adaptiveOrder8(timeBudget):
 		f1List =[]
 		blockSize = 1	
 		executionTime = 0
-		stepSize = 20   #step size of 20 seconds. After every 20 seconds evaluate the quality
-		currentTimeBound = 20
+		stepSize = 4   #step size of 20 seconds. After every 20 seconds evaluate the quality
+		currentTimeBound = 4
 		t11 = 0
 		t12 = 0
 		
@@ -2397,11 +2405,11 @@ def adaptiveOrder8(timeBudget):
 				
 				
 				
-				### Calculating the time and quality after running one classifiers each.
+				### Calculating the time and quality after running one classifiers each.########
 				t2 = time.time()
 				executionTime = executionTime + (t2- t1)
 				#set.remove(genderPredicate8)
-	
+
 				qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
 				print 'returned images'
 				print qualityOfAnswer[3]
@@ -2413,18 +2421,18 @@ def adaptiveOrder8(timeBudget):
 				print>>f1,'real F1 : %f'%(realF1)
 					#f1measure = qualityOfAnswer[0]
 				f1measure = realF1
-				timeList.append(executionTime)
+				timeList.append(0)
 				f1List.append(f1measure)
 				currentTimeBound = currentTimeBound + stepSize
 				print>>f1,'time bound completed:%d'%(currentTimeBound)
-				
+				###################################################################################	
 				
 					
 			if count >0:
 			
 				###### Feature 1 ##########
 				tempClf = ['DT','GNB','RF','KNN']
-				t11 = time.time()
+				
 				for w in range(4):
 					tempClf = ['DT','GNB','RF','KNN']
 					## Checking next best classifier value.
@@ -2434,7 +2442,7 @@ def adaptiveOrder8(timeBudget):
 					operator = set1[w]
 					images = [dl[k] for k in imageIndex]
 					if len(imageIndex)!=0:
-						
+						t11 = time.time()
 						probValues = operator(images)						
 						#if(totalExecutionTime +totalThinkTime)>timeBudget:
 						#	break
@@ -2461,17 +2469,42 @@ def adaptiveOrder8(timeBudget):
 							uncertainty = -combinedProbability* np.log2(combinedProbability) - (1- combinedProbability)* np.log2(1- combinedProbability)
 							currentUncertaintyFeature1[imageIndex[i]] = uncertainty
 							
-					
-					imageIndex[:]=[]
-					images[:] =[]
+						t12 = time.time()
+						totalExecutionTime = totalExecutionTime + (t12-t11)	
+						
+						timeElapsed = timeElapsed +(t12-t11)	
+						
+						if timeElapsed > currentTimeBound:
+							qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+		
+							if len(qualityOfAnswer[3]) > 0:
+								realF1 = findRealF1(qualityOfAnswer[3])
+							else: 
+								realF1 = 0
+							#print>>f1,'real F1 : %f'%(realF1)
+							#f1measure = qualityOfAnswer[0]
+							f1measure = realF1
+							timeList.append(timeElapsed)
+							f1List.append(f1measure)
+							#print>>f1,'F1 list : {}'.format(f1List)
+		
+							#print 'time bound completed:%d'%(currentTimeBound)	
+							#print>>f1,'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+							#print 'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+		
+							currentTimeBound = currentTimeBound + stepSize
+							break 
+						
+						if timeElapsed > timeBudget:
+							break		
+					#imageIndex[:]=[]
+					#images[:] =[]
 					#probValues[:]=[]
-				t12 = time.time()
-				totalExecutionTime = totalExecutionTime + (t12-t11)	
-				executionTimeList.append(t12-t11)
+				
 				
 				###### Feature 2 ##########
 				
-				t11 = time.time()
+				#t11 = time.time()
 				for w in range(4):
 					tempClf = ['DT','GNB','RF','KNN']
 					## Checking next best classifier value.
@@ -2481,7 +2514,7 @@ def adaptiveOrder8(timeBudget):
 					operator = set2[w]
 					images = [dl[k] for k in imageIndex]
 					if len(imageIndex)!=0:
-						
+						t11 = time.time()
 						probValues = operator(images)						
 						#if(totalExecutionTime +totalThinkTime)>timeBudget:
 						#	break
@@ -2508,15 +2541,43 @@ def adaptiveOrder8(timeBudget):
 							uncertainty = -combinedProbability* np.log2(combinedProbability) - (1- combinedProbability)* np.log2(1- combinedProbability)
 							currentUncertaintyFeature2[imageIndex[i]] = uncertainty
 							
-					
-					imageIndex[:]=[]
-					images[:] =[]
+						t12 = time.time()
+						totalExecutionTime = totalExecutionTime + (t12-t11)	
+						timeElapsed = timeElapsed +(t12-t11)	
+						
+						
+						if timeElapsed > currentTimeBound:
+							qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+		
+							if len(qualityOfAnswer[3]) > 0:
+								realF1 = findRealF1(qualityOfAnswer[3])
+							else: 
+								realF1 = 0
+							#print>>f1,'real F1 : %f'%(realF1)
+							#f1measure = qualityOfAnswer[0]
+							f1measure = realF1
+							timeList.append(timeElapsed)
+							f1List.append(f1measure)
+							#print>>f1,'F1 list : {}'.format(f1List)
+		
+							#print 'time bound completed:%d'%(currentTimeBound)	
+							#print>>f1,'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+							#print 'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+		
+							currentTimeBound = currentTimeBound + stepSize
+							break 
+						
+						if timeElapsed > timeBudget:
+							break		
+				imageIndex[:]=[]
+				images[:] =[]
 					#probValues[:]=[]
+				'''	
 				t12 = time.time()
 				totalExecutionTime = totalExecutionTime + (t12-t11)	
 				executionTimeList.append(t12-t11)
-			
-			
+				'''
+			executionTimeList.append(totalExecutionTime)
 			nextBestClassifier = [0]*len(dl)
 			deltaUncertainty = [0] *len(dl)
 			benefitArray = [-10] * len(dl)
@@ -2535,11 +2596,11 @@ def adaptiveOrder8(timeBudget):
 			currentAnswerSet = qualityOfAnswer[3]
 			allObjects = list(range(0,len(dl)))
 			
-			outsideObjects = allObjects
-			'''
+			#outsideObjects = allObjects
+			
 			### Uncomment this part for choosing objects from outside of the answer set.
 			outsideObjects = [x for x in allObjects if x not in currentAnswerSet]
-			'''
+			
 			
 			print>>f1,"inside objects : {} ".format(currentAnswerSet)
 			print>>f1,"length of inside objects : %f"%len(currentAnswerSet)
@@ -3249,8 +3310,8 @@ def baseline3(budget):
 	f1List = []
 	
 	executionTime = 0
-	stepSize = 20   #step size of 20 seconds. After every 20 seconds evaluate the quality
-	currentTimeBound = 20
+	stepSize = 4   #step size of 20 seconds. After every 20 seconds evaluate the quality
+	currentTimeBound = 4
 	
 	#dt,gnb,rf,knn
 	set1 = [genderPredicate6,genderPredicate1,genderPredicate3,genderPredicate7]
@@ -3319,6 +3380,22 @@ def baseline3(budget):
 	executionTime = executionTime + (t2- t1)
 	set1.remove(genderPredicate6)
 	set2.remove(expressionPredicate6)
+	
+	######## Finding initial quality value ######################	
+	qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+	print 'returned images'
+	print qualityOfAnswer[3]
+	print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
+	if len(qualityOfAnswer[3]) > 0:
+		realF1 = findRealF1(qualityOfAnswer[3])
+	else: 
+		realF1 = 0
+	print>>f1,'real F1 : %f'%(realF1)
+					#f1measure = qualityOfAnswer[0]
+	f1measure = realF1
+	timeList.append(0)
+	f1List.append(f1measure)
+	#######################################################
 	
 	set1 = [genderPredicate1,genderPredicate3,genderPredicate7]
 	aucSet1 = [0.85,0.93,0.80]
@@ -3460,8 +3537,8 @@ def baseline4(budget):
 	timeList =[]
 	f1List = []
 	executionTime = 0
-	stepSize = 20   #step size of 20 seconds. After every 20 seconds evaluate the quality
-	currentTimeBound = 20
+	stepSize = 4   #step size of 20 seconds. After every 20 seconds evaluate the quality
+	currentTimeBound = 4
 	count =0
 	
 	#gnb,et,rf,svm
@@ -3540,6 +3617,21 @@ def baseline4(budget):
 	set1.remove(genderPredicate6)
 	set2.remove(expressionPredicate6)
 	
+	######## Finding initial quality value ######################	
+	qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+	print 'returned images'
+	print qualityOfAnswer[3]
+	print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
+	if len(qualityOfAnswer[3]) > 0:
+		realF1 = findRealF1(qualityOfAnswer[3])
+	else: 
+		realF1 = 0
+	print>>f1,'real F1 : %f'%(realF1)
+					#f1measure = qualityOfAnswer[0]
+	f1measure = realF1
+	timeList.append(0)
+	f1List.append(f1measure)
+	#######################################################
 	
 	set1 = [genderPredicate1,genderPredicate3,genderPredicate7]
 	aucSet1 = [0.85,0.93,0.80]
@@ -3696,6 +3788,145 @@ def compareCost():
 		print 'aggregated time:%f'%(t22-t21)
 		print>>f1,'aggregated time:%f'%(t22-t21)
 		print>>f1,'aggregated average time:%f'%((t22-t21)/100)
+
+
+def generateMultipleExecutionResult():
+	#createSample()
+	#createRandomSample()
+	f1 = open('queryTestMultiPieMultiFeature.txt','w+')
+	
+	#q1_all,q2_all,q3_all = [],[],[]
+	t1_all,q1_all,t2_all,q2_all,t3_all,q3_all=[],[],[],[],[],[]
+	
+	for i in range(2):
+		global dl,nl,nl2
+		#dl,nl =pickle.load(open('5Samples/MuctTrainGender'+str(i)+'_XY.p','rb'))
+		
+		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 200))]
+		dl_test = [dl4[i1] for i1 in  imageIndex]
+		nl_test = [nl4[i1] for i1 in imageIndex]
+		nl_test2 = [nl3[i1] for i1 in imageIndex]
+	
+		
+		
+		dl = np.array(dl_test)
+		nl = np. array(nl_test)
+		nl2 = np. array(nl_test2)
+		[t1,q1]=baseline3(40)
+		[t2,q2] =baseline4(40)
+		[t3,q3] =adaptiveOrder8(40)
+		t1_all.append(t1)
+		t2_all.append(t2)
+		t3_all.append(t3)
+		q1_all.append(q1)
+		q2_all.append(q2)
+		q3_all.append(q3)
+		
+		
+		print>>f1,'sameple id : %d'%(i)
+		print>>f1,"t1 = {} ".format(t1)
+		print>>f1,"q1 = {} ".format(q1)
+		print>>f1,"t2 = {} ".format(t2)
+		print>>f1,"q2 = {} ".format(q2)
+		print>>f1,"t3 = {} ".format(t3)
+		print>>f1,"q3 = {} ".format(q3)
+		'''
+		plt.plot(t1, q1,lw=2,color='green',  label='Baseline1 (Function Based Approach)')
+		plt.plot(t2, q2,lw=2,color='orange',  label='Baseline2 (Object Based Approach)')
+		plt.plot(t3, q3,lw=2,color='blue', label='Iterative Approach') ##2,000
+
+		plt.ylim([0, 1])
+		plt.xlim([0, 20])
+		plt.title('Quality vs Cost')
+		plt.legend(loc="lower left",fontsize='medium')
+		plt.ylabel('F1-measure')
+		plt.xlabel('Cost')	
+		plt.savefig('PlotQualityComparisonMuctBaseline_gender'+str(i)+'.png', format='png')
+		plt.savefig('PlotQualityComparisonMuctBaseline_gender'+str(i)+'.eps', format='eps')
+		#plt.show()
+		plt.close()
+		'''
+	q1 = [sum(e)/len(e) for e in zip(*q1_all)]
+	q2 = [sum(e)/len(e) for e in zip(*q2_all)]
+	q3 = [sum(e)/len(e) for e in zip(*q3_all)]
+	plt.plot(t1, q1,lw=2,color='green',marker='o',  label='Baseline1 (Function Based Approach)')
+	plt.plot(t2, q2,lw=2,color='orange',marker='^',  label='Baseline2 (Object Based Approach)')
+	plt.plot(t3, q3,lw=2,color='blue',marker='d', label='Iterative Approach') ##2,000
+
+	plt.ylim([0, 1])
+	plt.xlim([0, max(max(t1),max(t2),max(t3))])
+	plt.title('Quality vs Cost')
+	plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
+           ncol=2, mode="expand", borderaxespad=0.,fontsize='medium')
+           
+	plt.ylabel('F1-measure')
+	plt.xlabel('Cost')	
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_Avg.png', format='png')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_Avg.eps', format='eps')
+		#plt.show()
+	plt.close()
+	
+	
+	q1_new = np.asarray(q1)
+	q2_new = np.asarray(q2)
+	q3_new = np.asarray(q3)
+	
+	t1_new = [sum(e)/len(e) for e in zip(*t1_all)]
+	t2_new = [sum(e)/len(e) for e in zip(*t2_all)]
+	t3_new = [sum(e)/len(e) for e in zip(*t3_all)]
+	
+	
+	min_val = min(min(q1_new),min(q2_new),min(q3_new))
+	max_val = max(max(q1_new),max(q2_new),max(q3_new))
+	
+	
+	q1_norm = (q1_new-min_val)/(max_val - min_val)
+	q2_norm = (q2_new-min_val)/(max_val - min_val)
+	q3_norm = (q3_new-min_val)/(max_val - min_val)
+
+	plt.plot(t1_new, q1_norm,lw=2,color='green',marker='o',  label='Baseline1 (Function Based Approach)')
+	plt.plot(t2_new, q2_norm,lw=2,color='orange',marker='^',  label='Baseline2 (Object Based Approach)')
+	plt.plot(t3_new, q3_norm,lw=2,color='blue',marker='d', label='Iterative Approach') ##2,000
+	
+	'''
+	plt.plot(t1_new, q1_new,lw=2,color='green',  label='Baseline1 (Function Based Approach)')
+	plt.plot(t2_new, q2_new,lw=2,color='orange',  label='Baseline2 (Object Based Approach)')
+	plt.plot(t3_new, q3_new,lw=2,color='blue', label='Iterative Approach') ##2,000
+	'''
+
+	
+	plt.title('Quality vs Cost')
+	#plt.legend(loc="upper left",fontsize='medium')
+	plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
+           ncol=2, mode="expand", borderaxespad=0.,fontsize='medium')
+	plt.ylabel('Gain')
+	plt.xlabel('Cost')
+	#plt.ylim([0, 1])
+	plt.xlim([0, 20])	
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_gain.png', format='png')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_gain.eps', format='eps')
+		#plt.show()
+	plt.close()
+
+	
+	
+	'''
+	plt.plot(t1, q1,lw=2,color='green',  label='Baseline1 (Function Based Approach)')
+	plt.plot(t2, q2,lw=2,color='orange',  label='Baseline2 (Object Based Approach)')
+	plt.plot(t3, q3,lw=2,color='blue', label='Iterative Approach') ##2,000
+
+	plt.ylim([0, 1])
+	#plt.xlim([0, 300])
+	plt.title('Quality vs Cost')
+	plt.legend(loc="lower left",fontsize='medium')
+	plt.ylabel('F1-measure')
+	plt.xlabel('Cost')	
+	plt.savefig('PlotQualityComparisonMuctBaseline_gender.png', format='png')
+	plt.savefig('PlotQualityComparisonMuctBaseline_gender.eps', format='eps')
+	#plt.show()
+	plt.close()
+	'''		
+	
 		
 	
 if __name__ == '__main__':
@@ -3703,7 +3934,9 @@ if __name__ == '__main__':
 	#adaptiveOrder7(200)
 	setupFeature1()
 	setupFeature2()
-	adaptiveOrder8(600)
+	#adaptiveOrder8(600)
+	
+	generateMultipleExecutionResult()
 	#baseline3(600)
 	#baseline4(600)
 	#adaptiveOrder9(400)
