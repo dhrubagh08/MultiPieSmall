@@ -2243,7 +2243,10 @@ def adaptiveOrder8(timeBudget):
 	
 	
 	#blockList = [200]
-	blockList = [60]
+	#blockList = [60]
+	#blockList = [120]
+	#blockList = [300]
+	blockList = [400]
 	executionPerformed = 0
 	thinkTimeList = []
 	executionTimeList = []
@@ -2423,8 +2426,8 @@ def adaptiveOrder8(timeBudget):
 				f1measure = realF1
 				timeList.append(0)
 				f1List.append(f1measure)
-				currentTimeBound = currentTimeBound + stepSize
-				print>>f1,'time bound completed:%d'%(currentTimeBound)
+				#currentTimeBound = currentTimeBound + stepSize
+				#print>>f1,'time bound completed:%d'%(currentTimeBound)
 				###################################################################################	
 				
 					
@@ -2432,7 +2435,7 @@ def adaptiveOrder8(timeBudget):
 			
 				###### Feature 1 ##########
 				tempClf = ['DT','GNB','RF','KNN']
-				
+				flag = 0
 				for w in range(4):
 					tempClf = ['DT','GNB','RF','KNN']
 					## Checking next best classifier value.
@@ -2442,61 +2445,64 @@ def adaptiveOrder8(timeBudget):
 					operator = set1[w]
 					images = [dl[k] for k in imageIndex]
 					if len(imageIndex)!=0:
-						t11 = time.time()
-						probValues = operator(images)						
+						#probValues = operator(images)						
 						#if(totalExecutionTime +totalThinkTime)>timeBudget:
 						#	break
-						for i in range(len(imageIndex)):		
-							
-							rocProb = probValues[i]
+						for i1 in range(len(imageIndex)):		
+							t11 = time.time()
+						
+							probValues = operator([images[i1]])
+							rocProb = probValues
+						
 							
 							#finding index of classifier
 							indexClf = set1.index(operator)
-							tempProb = currentProbFeature1[imageIndex[i]][0]
+							tempProb = currentProbFeature1[imageIndex[i1]][0]
 							tempProb[indexClf] = rocProb
 							#print currentProbability[imageIndex[i]]
 							#if count !=0:
 								#print nextBestClassifier[imageIndex[i]]
 							
 							# setting the bit for the corresponding classifier
-							tempClf = prevClfFeature1[imageIndex[i]][0]
+							tempClf = prevClfFeature1[imageIndex[i1]][0]
 							tempClf[indexClf] = 1
 							
 							# calculating the current cobined probability
-							combinedProbability = combineProbability(currentProbFeature1[imageIndex[i]])
+							combinedProbability = combineProbability(currentProbFeature1[imageIndex[i1]])
 							
 							# using the combined probability value to calculate uncertainty
 							uncertainty = -combinedProbability* np.log2(combinedProbability) - (1- combinedProbability)* np.log2(1- combinedProbability)
-							currentUncertaintyFeature1[imageIndex[i]] = uncertainty
+							currentUncertaintyFeature1[imageIndex[i1]] = uncertainty
 							
-						t12 = time.time()
-						totalExecutionTime = totalExecutionTime + (t12-t11)	
+							t12 = time.time()
+							totalExecutionTime = totalExecutionTime + (t12-t11)	
 						
-						timeElapsed = timeElapsed +(t12-t11)	
+							timeElapsed = timeElapsed +(t12-t11)	
 						
-						if timeElapsed > currentTimeBound:
-							qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+							if timeElapsed > currentTimeBound:
+								qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
 		
-							if len(qualityOfAnswer[3]) > 0:
-								realF1 = findRealF1(qualityOfAnswer[3])
-							else: 
-								realF1 = 0
-							#print>>f1,'real F1 : %f'%(realF1)
-							#f1measure = qualityOfAnswer[0]
-							f1measure = realF1
-							timeList.append(timeElapsed)
-							f1List.append(f1measure)
-							#print>>f1,'F1 list : {}'.format(f1List)
+								if len(qualityOfAnswer[3]) > 0:
+									realF1 = findRealF1(qualityOfAnswer[3])
+								else: 
+									realF1 = 0
+								#print>>f1,'real F1 : %f'%(realF1)
+								#f1measure = qualityOfAnswer[0]
+								f1measure = realF1
+								timeList.append(timeElapsed)
+								f1List.append(f1measure)
+								#print>>f1,'F1 list : {}'.format(f1List)
 		
-							#print 'time bound completed:%d'%(currentTimeBound)	
-							#print>>f1,'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
-							#print 'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+								#print 'time bound completed:%d'%(currentTimeBound)	
+								#print>>f1,'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+								#print 'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
 		
-							currentTimeBound = currentTimeBound + stepSize
-							break 
+								currentTimeBound = currentTimeBound + stepSize
+								flag = 1
+								#break 
 						
-						if timeElapsed > timeBudget:
-							break		
+							if timeElapsed > timeBudget:
+								break		
 					#imageIndex[:]=[]
 					#images[:] =[]
 					#probValues[:]=[]
@@ -2505,70 +2511,70 @@ def adaptiveOrder8(timeBudget):
 				###### Feature 2 ##########
 				
 				#t11 = time.time()
-				for w in range(4):
-					tempClf = ['DT','GNB','RF','KNN']
-					## Checking next best classifier value.
-					imageIndex = [item for item in topKIndexes if (nextBestClassifierFeature2[item] == tempClf[w] and featureArray[item] ==2)]
-					# Based on feature value, choosing the operator.
+				if flag !=1:
+					for w in range(4):
+						tempClf = ['DT','GNB','RF','KNN']
+						## Checking next best classifier value.
+						imageIndex = [item for item in topKIndexes if (nextBestClassifierFeature2[item] == tempClf[w] and featureArray[item] ==2)]
+						# Based on feature value, choosing the operator.
 					
-					operator = set2[w]
-					images = [dl[k] for k in imageIndex]
-					if len(imageIndex)!=0:
-						t11 = time.time()
-						probValues = operator(images)						
-						#if(totalExecutionTime +totalThinkTime)>timeBudget:
-						#	break
-						for i in range(len(imageIndex)):		
+						operator = set2[w]
+						images = [dl[k] for k in imageIndex]
+						if len(imageIndex)!=0:
+							probValues = operator(images)						
+							#if(totalExecutionTime +totalThinkTime)>timeBudget:
+							#	break
+							for i in range(len(imageIndex)):		
+								t11 = time.time()
+								rocProb = probValues[i]
 							
-							rocProb = probValues[i]
+								#finding index of classifier
+								indexClf = set2.index(operator)
+								tempProb = currentProbFeature2[imageIndex[i]][0]
+								tempProb[indexClf] = rocProb
+								#print currentProbability[imageIndex[i]]
+								#if count !=0:
+									#print nextBestClassifier[imageIndex[i]]
 							
-							#finding index of classifier
-							indexClf = set2.index(operator)
-							tempProb = currentProbFeature2[imageIndex[i]][0]
-							tempProb[indexClf] = rocProb
-							#print currentProbability[imageIndex[i]]
-							#if count !=0:
-								#print nextBestClassifier[imageIndex[i]]
+								# setting the bit for the corresponding classifier
+								tempClf = prevClfFeature2[imageIndex[i]][0]
+								tempClf[indexClf] = 1
 							
-							# setting the bit for the corresponding classifier
-							tempClf = prevClfFeature2[imageIndex[i]][0]
-							tempClf[indexClf] = 1
+								# calculating the current cobined probability
+								combinedProbability = combineProbability(currentProbFeature2[imageIndex[i]])
 							
-							# calculating the current cobined probability
-							combinedProbability = combineProbability(currentProbFeature2[imageIndex[i]])
+								# using the combined probability value to calculate uncertainty
+								uncertainty = -combinedProbability* np.log2(combinedProbability) - (1- combinedProbability)* np.log2(1- combinedProbability)
+								currentUncertaintyFeature2[imageIndex[i]] = uncertainty
 							
-							# using the combined probability value to calculate uncertainty
-							uncertainty = -combinedProbability* np.log2(combinedProbability) - (1- combinedProbability)* np.log2(1- combinedProbability)
-							currentUncertaintyFeature2[imageIndex[i]] = uncertainty
-							
-						t12 = time.time()
-						totalExecutionTime = totalExecutionTime + (t12-t11)	
-						timeElapsed = timeElapsed +(t12-t11)	
+								t12 = time.time()
+								totalExecutionTime = totalExecutionTime + (t12-t11)	
+								timeElapsed = timeElapsed +(t12-t11)	
 						
 						
-						if timeElapsed > currentTimeBound:
-							qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+								if timeElapsed > currentTimeBound:
+									qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
 		
-							if len(qualityOfAnswer[3]) > 0:
-								realF1 = findRealF1(qualityOfAnswer[3])
-							else: 
-								realF1 = 0
-							#print>>f1,'real F1 : %f'%(realF1)
-							#f1measure = qualityOfAnswer[0]
-							f1measure = realF1
-							timeList.append(timeElapsed)
-							f1List.append(f1measure)
-							#print>>f1,'F1 list : {}'.format(f1List)
+									if len(qualityOfAnswer[3]) > 0:
+										realF1 = findRealF1(qualityOfAnswer[3])
+									else: 
+										realF1 = 0
+									#print>>f1,'real F1 : %f'%(realF1)
+									#f1measure = qualityOfAnswer[0]
+									f1measure = realF1
+									timeList.append(timeElapsed)
+									f1List.append(f1measure)
+									#print>>f1,'F1 list : {}'.format(f1List)
 		
-							#print 'time bound completed:%d'%(currentTimeBound)	
-							#print>>f1,'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
-							#print 'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+									#print 'time bound completed:%d'%(currentTimeBound)	
+									#print>>f1,'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+									#print 'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
 		
-							currentTimeBound = currentTimeBound + stepSize
-							break 
+									currentTimeBound = currentTimeBound + stepSize
+									#break 
 						
-						if timeElapsed > timeBudget:
-							break		
+								if timeElapsed > timeBudget:
+									break		
 				imageIndex[:]=[]
 				images[:] =[]
 					#probValues[:]=[]
@@ -2596,10 +2602,10 @@ def adaptiveOrder8(timeBudget):
 			currentAnswerSet = qualityOfAnswer[3]
 			allObjects = list(range(0,len(dl)))
 			
-			#outsideObjects = allObjects
+			outsideObjects = allObjects
 			
 			### Uncomment this part for choosing objects from outside of the answer set.
-			outsideObjects = [x for x in allObjects if x not in currentAnswerSet]
+			#outsideObjects = [x for x in allObjects if x not in currentAnswerSet]
 			
 			
 			print>>f1,"inside objects : {} ".format(currentAnswerSet)
@@ -2616,7 +2622,7 @@ def adaptiveOrder8(timeBudget):
 			print>>f1,"state of outside objects for feature 1 : {}".format(stateListOutside1)
 			stateListOutside2 = findStates(outsideObjects,prevClfFeature2)
 			print>>f1,"state of outside objects for feature 2 : {}".format(stateListOutside2)
-			
+			flag = 0
 			
 			if(len(outsideObjects)==0):
 				break
@@ -2701,19 +2707,19 @@ def adaptiveOrder8(timeBudget):
 			#timeList.append(timeElapsed)
 			
 			######Printing the next images to be run. Also the corresponding classifier. ##############
-			print 'next images to be run'
-			print topKIndexes
+			#print 'next images to be run'
+			#print topKIndexes
 			
-			print>>f1,'benefit array: {}'.format(benefitArray)
-			print>>f1,'next images to be run: {}'.format(topKIndexes)
+			#print>>f1,'benefit array: {}'.format(benefitArray)
+			#print>>f1,'next images to be run: {}'.format(topKIndexes)
 			
 			classifierSet1 = [nextBestClassifierFeature1[item2] for item2 in topKIndexes]
-			print>>f1,'classifier set 1: {}'.format(classifierSet1)
+			#print>>f1,'classifier set 1: {}'.format(classifierSet1)
 			
 			classifierSet2 = [nextBestClassifierFeature2[item2] for item2 in topKIndexes]
-			print>>f1,'classifier set 2: {}'.format(classifierSet2)
+			#print>>f1,'classifier set 2: {}'.format(classifierSet2)
 			
-			print>>f1,'feature array: {}'.format(featureArray)
+			#print>>f1,'feature array: {}'.format(featureArray)
 			if(all(element1=='NA' for element1 in classifierSet1) and all(element2=='NA' for element2 in classifierSet2) and count > 10):
 				break
 			##############################################################################################
@@ -2740,14 +2746,14 @@ def adaptiveOrder8(timeBudget):
 					realF1 = findRealF1(qualityOfAnswer[3])
 				else: 
 					realF1 = 0
-				print>>f1,'real F1 : %f'%(realF1)
+				#print>>f1,'real F1 : %f'%(realF1)
 				
 				
 				f1measure = realF1
 				timeList.append(timeElapsed)
 				f1List.append(f1measure)
-				print 'time bound completed:%d'%(currentTimeBound)	
-				print>>f1,'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(realF1,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+				#print 'time bound completed:%d'%(currentTimeBound)	
+				#print>>f1,'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(realF1,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
 				currentTimeBound = currentTimeBound + stepSize
 				
 			if timeElapsed > timeBudget:
@@ -2786,7 +2792,8 @@ def adaptiveOrder8(timeBudget):
 			#if count >= 5000:
 			#	break
 			count=count+1
-			
+		
+		'''	
 		plt.title('Quality vs Time Value')
 		#print>>f1,'percent : %f'%(percent)
 		#print>>f1,'block size : %f'%(block)
@@ -2811,6 +2818,7 @@ def adaptiveOrder8(timeBudget):
 		plt.close()
 		#xValue = timeList
 		#yValue = f1List
+		'''
 		
 	'''
 	plt.ylabel('Quality')
@@ -2836,12 +2844,14 @@ def adaptiveOrder8(timeBudget):
 	#yValue = f1measurePerAction
 	#labelValue = 'Adaptive algorithm(Think='+str(percent)+'%)'
 	#labelValue = 'Adaptive algorithm(Block size='+str(block)+')'
+	'''
 	plt.plot(xValue, yValue,'g')
 	plt.ylim([0, 1])
 	plt.legend(loc="upper left")
 	plt.savefig('plotQualityAdaptive8MultiFeature.png')
 	#plt.show()
 	plt.close()
+	'''
 	return [timeList,f1List]
 
 
@@ -3352,7 +3362,7 @@ def baseline3(budget):
 			
 		for i in range(len(dl)):
 			probValues = operator([dl[i]])
-			print>>f1,probValues
+			#print>>f1,probValues
 			indexClf = set1.index(operator)
 			tempProb = currentProbFeature1[i][0]
 			tempProb[indexClf] = probValues
@@ -3366,7 +3376,7 @@ def baseline3(budget):
 				
 		for i in range(len(dl)):
 			probValues = operator([dl[i]])
-			print>>f1,probValues
+			#print>>f1,probValues
 			indexClf = set2.index(operator)
 			tempProb = currentProbFeature2[i][0]
 			tempProb[indexClf] = probValues
@@ -3383,14 +3393,14 @@ def baseline3(budget):
 	
 	######## Finding initial quality value ######################	
 	qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
-	print 'returned images'
-	print qualityOfAnswer[3]
-	print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
+	#print 'returned images'
+	#print qualityOfAnswer[3]
+	#print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
 	if len(qualityOfAnswer[3]) > 0:
 		realF1 = findRealF1(qualityOfAnswer[3])
 	else: 
 		realF1 = 0
-	print>>f1,'real F1 : %f'%(realF1)
+	#print>>f1,'real F1 : %f'%(realF1)
 					#f1measure = qualityOfAnswer[0]
 	f1measure = realF1
 	timeList.append(0)
@@ -3402,9 +3412,9 @@ def baseline3(budget):
 	costSet1 = [0.095875,0.023094, 0.866073 ]
 	
 	benefitSet1 = [ float(aucSet1[i])/costSet1[i] for i in range(len(aucSet1))]
-	print benefitSet1
+	#print benefitSet1
 	workflow1 =[x for y, x in sorted(zip(benefitSet1, set1),reverse=True)]
-	print workflow1
+	#print workflow1
 	 
 	
 	
@@ -3413,9 +3423,9 @@ def baseline3(budget):
 	costSet2 = [0.018030,0.020180,0.790850]
 	
 	benefitSet2 = [ float(aucSet2[i])/costSet2[i] for i in range(len(aucSet2))]
-	print benefitSet2
+	#print benefitSet2
 	workflow2 =[x for y, x in sorted(zip(benefitSet2, set2),reverse=True)]
-	print workflow2
+	#print workflow2
 	
 	round = 1
 	
@@ -3465,25 +3475,25 @@ def baseline3(budget):
 			
 				if executionTime > currentTimeBound:
 					qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
-					print 'returned images'
-					print qualityOfAnswer[3]
-					print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
+					#print 'returned images'
+					#print qualityOfAnswer[3]
+					#print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
 					if len(qualityOfAnswer[3]) > 0:
 						realF1 = findRealF1(qualityOfAnswer[3])
 					else: 
 						realF1 = 0
-					print>>f1,'real F1 : %f'%(realF1)
+					#print>>f1,'real F1 : %f'%(realF1)
 					#f1measure = qualityOfAnswer[0]
 					f1measure = realF1
 					timeList.append(currentTimeBound)
 					f1List.append(f1measure)
 					currentTimeBound = currentTimeBound + stepSize
-					print>>f1,'time bound completed:%d'%(currentTimeBound)
+					#print>>f1,'time bound completed:%d'%(currentTimeBound)
 				
 				if executionTime > budget:
 					break
 				
-			print 'round %d completed'%(round)
+			#print 'round %d completed'%(round)
 			
 			if executionTime > budget:
 					break
@@ -3496,12 +3506,13 @@ def baseline3(budget):
 		
 		
 		# store the time values and F1 values
-		print>>f1,"budget values : {} ".format(timeList)
-		print>>f1,"f1 measures : {} ".format(f1List)
+		#print>>f1,"budget values : {} ".format(timeList)
+		#print>>f1,"f1 measures : {} ".format(f1List)
 			
 		#plot quality vs time 
 		#timeList = [20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280] 
 		#f1List = [0.6667605490515276, 0.666838374853555, 0.6669078673934243, 0.6670447162904274, 0.6671836282556838, 0.6671978153931125, 0.6671986297399674, 0.6671819086745975, 0.6671767559957542, 0.6672143236162872, 0.6673124457328257, 0.6674186908487334, 0.6674062673780302, 0.6674207092762636] 
+		'''
 		plt.title('Quality vs Time Value for BaseLine 3')
 		xValue = timeList
 		yValue = f1List
@@ -3512,11 +3523,13 @@ def baseline3(budget):
 		plt.savefig('QualityBaseLine3GenderMuct.eps', format='eps')
 		#plt.show()
 		plt.close()
+		'''
 		
-		
+	'''	
 	print>>f1,"Workflow : {} ".format(workflow1)
 	print>>f1,"Workflow : {} ".format(workflow2)
 	print>>f1,'Time taken: %f'%(timeElapsed)
+	'''
 	#return f1measure
 	return [timeList,f1List]
 
@@ -3603,7 +3616,7 @@ def baseline4(budget):
 				
 		for i in range(len(dl)):
 			probValues = operator([dl[i]])
-			print>>f1,probValues
+			#print>>f1,probValues
 			indexClf = set2.index(operator)
 			tempProb = currentProbFeature2[i][0]
 			tempProb[indexClf] = probValues										
@@ -3619,14 +3632,14 @@ def baseline4(budget):
 	
 	######## Finding initial quality value ######################	
 	qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
-	print 'returned images'
-	print qualityOfAnswer[3]
-	print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
+	#print 'returned images'
+	#print qualityOfAnswer[3]
+	#print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
 	if len(qualityOfAnswer[3]) > 0:
 		realF1 = findRealF1(qualityOfAnswer[3])
 	else: 
 		realF1 = 0
-	print>>f1,'real F1 : %f'%(realF1)
+	#print>>f1,'real F1 : %f'%(realF1)
 					#f1measure = qualityOfAnswer[0]
 	f1measure = realF1
 	timeList.append(0)
@@ -3687,47 +3700,47 @@ def baseline4(budget):
 				executionTime = executionTime + (t12- t11)
 				
 				### Running function of feature 2 ###
-				if rocProb >0.6:
-					operator2 = workflow2[i]
-					t11 = time.time()
-					imageProb = operator2([dl[j]])
-					t12 = time.time()
-					rocProb = imageProb
-					
-
-					#print 'image:%d'%(j)
-					#print("Roc Prob : {} ".format(rocProb))
-					
-					#index of classifier
-					indexClf = set2.index(operator2)
-					tempProb = currentProbFeature2[j][0]
-					tempProb[indexClf] = rocProb
+				#if rocProb >0.6:
+				operator2 = workflow2[i]
+				t11 = time.time()
+				imageProb = operator2([dl[j]])
+				t12 = time.time()
+				rocProb = imageProb
 				
+
+				#print 'image:%d'%(j)
+				#print("Roc Prob : {} ".format(rocProb))
+				
+				#index of classifier
+				indexClf = set2.index(operator2)
+				tempProb = currentProbFeature2[j][0]
+				tempProb[indexClf] = rocProb
+			
 				
 				executionTime = executionTime + (t12- t11)
 				
 				
 				
-			if executionTime > currentTimeBound:
-				qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
-				print 'returned images'
-				print qualityOfAnswer[3]
-				if len(qualityOfAnswer[3]) > 0:
-					realF1 = findRealF1(qualityOfAnswer[3])
-				else:
-					realF1 = 0
-				print 'real F1 : %f'%(realF1)
-				#f1measure = qualityOfAnswer[0]
-				f1measure = realF1
-				#f1measure = qualityOfAnswer[0]
-				timeList.append(currentTimeBound)
-				f1List.append(f1measure)
-				currentTimeBound = currentTimeBound + stepSize
-				print 'time bound completed:%d'%(currentTimeBound)	
+				if executionTime > currentTimeBound:
+					qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+					#print 'returned images'
+					#print qualityOfAnswer[3]
+					if len(qualityOfAnswer[3]) > 0:
+						realF1 = findRealF1(qualityOfAnswer[3])
+					else:
+						realF1 = 0
+					print 'real F1 : %f'%(realF1)
+					#f1measure = qualityOfAnswer[0]
+					f1measure = realF1
+					#f1measure = qualityOfAnswer[0]
+					timeList.append(currentTimeBound)
+					f1List.append(f1measure)
+					currentTimeBound = currentTimeBound + stepSize
+					print 'time bound completed:%d'%(currentTimeBound)	
 					
 					
-			if executionTime > budget:
-					break
+				if executionTime > budget:
+						break
 			
 			round = round + 1
 			
@@ -3738,12 +3751,13 @@ def baseline4(budget):
 		f1measure = qualityOfAnswer[0]
 		
 		# store the time values and F1 values
-		print>>f1,"budget values : {} ".format(timeList)
-		print>>f1,"f1 measures : {} ".format(f1List)
+		#print>>f1,"budget values : {} ".format(timeList)
+		#print>>f1,"f1 measures : {} ".format(f1List)
 			
 		#plot quality vs time 
 		#timeList = [20, 40, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260, 280] 
 		#f1List = [0.6667605490515276, 0.666838374853555, 0.6669078673934243, 0.6670447162904274, 0.6671836282556838, 0.6671978153931125, 0.6671986297399674, 0.6671819086745975, 0.6671767559957542, 0.6672143236162872, 0.6673124457328257, 0.6674186908487334, 0.6674062673780302, 0.6674207092762636] 
+		'''
 		plt.title('Quality vs Time Value for BaseLine 4')
 		xValue = timeList
 		yValue = f1List
@@ -3755,11 +3769,13 @@ def baseline4(budget):
 		plt.savefig('QualityBaseLine4GenderMuct.eps', format='eps')
 		#plt.show()
 		plt.close()
+		'''
 	
-	
+	'''
 	print>>f1,"Workflow1 : {} ".format(workflow1)
 	print>>f1,"Workflow2 : {} ".format(workflow2)
 	print>>f1,'Time taken: %f, f1 measure of the answer set: %f, precision:%f, recall:%f'%(timeElapsed,findRealF1(qualityOfAnswer[3]),qualityOfAnswer[1],qualityOfAnswer[2])
+	'''
 	#return f1measure
 	return [timeList,f1List]
 	
@@ -3798,11 +3814,11 @@ def generateMultipleExecutionResult():
 	#q1_all,q2_all,q3_all = [],[],[]
 	t1_all,q1_all,t2_all,q2_all,t3_all,q3_all=[],[],[],[],[],[]
 	
-	for i in range(2):
+	for i in range(1):
 		global dl,nl,nl2
 		#dl,nl =pickle.load(open('5Samples/MuctTrainGender'+str(i)+'_XY.p','rb'))
 		
-		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 200))]
+		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 600))]
 		dl_test = [dl4[i1] for i1 in  imageIndex]
 		nl_test = [nl4[i1] for i1 in imageIndex]
 		nl_test2 = [nl3[i1] for i1 in imageIndex]
@@ -3812,9 +3828,9 @@ def generateMultipleExecutionResult():
 		dl = np.array(dl_test)
 		nl = np. array(nl_test)
 		nl2 = np. array(nl_test2)
-		[t1,q1]=baseline3(40)
-		[t2,q2] =baseline4(40)
-		[t3,q3] =adaptiveOrder8(40)
+		[t1,q1]=baseline3(80)
+		[t2,q2] =baseline4(80)
+		[t3,q3] =adaptiveOrder8(80)
 		t1_all.append(t1)
 		t2_all.append(t2)
 		t3_all.append(t3)
@@ -3861,8 +3877,8 @@ def generateMultipleExecutionResult():
            
 	plt.ylabel('F1-measure')
 	plt.xlabel('Cost')	
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_Avg.png', format='png')
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_Avg.eps', format='eps')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_500_Avg.png', format='png')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_500_Avg.eps', format='eps')
 		#plt.show()
 	plt.close()
 	
@@ -3902,9 +3918,9 @@ def generateMultipleExecutionResult():
 	plt.ylabel('Gain')
 	plt.xlabel('Cost')
 	#plt.ylim([0, 1])
-	plt.xlim([0, 20])	
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_gain.png', format='png')
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_gain.eps', format='eps')
+	plt.xlim([0, max(max(t1),max(t2),max(t3))])	
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_500_gain.png', format='png')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_500_gain.eps', format='eps')
 		#plt.show()
 	plt.close()
 
