@@ -2247,7 +2247,8 @@ def adaptiveOrder8(timeBudget):
 	#blockList = [120]
 	#blockList = [300]
 	#blockList = [400] # for 600
-	blockList = [800]
+	#blockList = [800]
+	blockList = [600]
 	#blockList = [60]
 	executionPerformed = 0
 	thinkTimeList = []
@@ -3820,7 +3821,8 @@ def generateMultipleExecutionResult():
 		global dl,nl,nl2
 		#dl,nl =pickle.load(open('5Samples/MuctTrainGender'+str(i)+'_XY.p','rb'))
 		
-		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 1000))]
+		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 750))]
+		
 		dl_test = [dl4[i1] for i1 in  imageIndex]
 		nl_test = [nl4[i1] for i1 in imageIndex]
 		nl_test2 = [nl3[i1] for i1 in imageIndex]
@@ -3879,8 +3881,8 @@ def generateMultipleExecutionResult():
            
 	plt.ylabel('F1-measure')
 	plt.xlabel('Cost')	
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_500_Avg.png', format='png')
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_500_Avg.eps', format='eps')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_750_obj_120sec.png', format='png')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_750_obj_120sec.eps', format='eps')
 		#plt.show()
 	plt.close()
 	
@@ -3921,8 +3923,8 @@ def generateMultipleExecutionResult():
 	plt.xlabel('Cost')
 	#plt.ylim([0, 1])
 	plt.xlim([0, max(max(t1),max(t2),max(t3))])	
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_500_gain.png', format='png')
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_500_gain.eps', format='eps')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_750_obj_gain.png', format='png')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_750_obj_gain.eps', format='eps')
 		#plt.show()
 	plt.close()
 
