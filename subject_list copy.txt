@@ -1,0 +1,337 @@
+1	1970	Male	1	1	1	0			39		EA			EA=European American		60%
+2	1973	Male	1	1	1	1			36		EA			Asian		35%
+3	1972	Male	1	1	1	1			37		EA					
+4	1974	Male	1	1	1	1			35		EA					
+5	1973	Male	1	1	1	1			36		EA					
+6	1974	Male	1	1	1	1			35		EA					
+7	1970	Male	1	0	0	0			39		EA					
+8	1959	Male	1	1	1	1			50		EA					
+9	1982	Male	1	1	1	1			27							
+10	1981	Femal	e	1	1	1	1		28		EA					
+11	1980	Male	1	1	1	1			29		EA					
+12	1977	Male	1	0	0	1			32		EA					
+13	1975	Male	1	1	1	0			34		EA					
+14	1984	Male	1	1	1	1			25							
+15	1981	Femal	e	1	1	1	1		28		EA					
+16	1979	Femal	e	1	0	1	1		30							
+17	1981	Male	1	1	1	1			28		EA					
+18	1973	Male	1	1	1	1			36		EA					
+19	1975	Male	1	1	1	1			34		EA					
+20	1978	Male	1	1	1	1			31		EA					
+21	1970	Male	1	1	0	1			39							
+22	1972	Male	1	1	1	1			37		EA					
+23	1967	Male	1	1	1	1			42		EA					
+24	1975	Femal	e	1	0	0	1		34		EA					
+25	1975	Male	1	1	0	0			34		EA					
+26	1975	Male	1	0	0	1			34		EA					
+27	1978	Male	1	1	1	1			31		EA					
+28	1980	Male	1	1	1	1			29		EA					
+29	1982	Male	1	1	1	1			27		EA					
+30	1979	Male	1	0	1	1			30		EA					
+31	1979	Femal	e	1	0	1	1		30							
+32	1976	Male	1	1	1	0			33							
+33	1973	Male	1	1	1	1			36							
+34	1979	Male	1	1	1	1			30		EA					
+35	1972	Male	1	1	1	1			37		EA					
+36	1983	Male	1	1	1	1			26		EA					
+37	1983	Femal	e	1	1	0	1		26		EA					
+38	1981	Male	1	1	1	1			28							
+39	1980	Femal	e	1	1	1	0		29							
+40	1973	Male	1	1	1	1			36		EA					
+41	1978	Male	1	1	1	1			31		EA					
+42	1981	Male	1	1	1	1			28							
+43	1977	Male	1	1	1	1			32							
+44	1968	Femal	e	1	1	1	1		41		EA					
+45	1982	Femal	e	1	0	0	0		27		EA					
+46	1960	Femal	e	1	1	1	1		49		EA					
+47	1954	Femal	e	1	1	1	1		55							
+48	1979	Male	1	1	1	1			30		EA					
+49	1982	Femal	e	1	1	1	1		27							
+50	1981	Male	1	1	1	1			28							
+51	1949	Femal	e	1	0	1	1		60		EA					
+52	1981	Male	1	1	1	1			28							
+53	1982	Male	1	1	1	1			27							
+54	1982	Male	1	1	1	1			27							
+55	1976	Femal	e	1	1	1	1		33		EA					
+56	1938	Male	1	1	1	1			71		EA					
+57	1969	Male	1	1	1	1			40		EA					
+58	1983	Male	1	0	0	0			26		EA					
+59	1980	Male	1	0	0	0			29							
+60	1981	Male	1	0	0	0			28		EA					
+61	1982	Femal	e	1	0	0	0		27							
+62	1977	Femal	e	1	1	1	1		32		EA					
+63	1982	Femal	e	1	0	1	1		27							
+64	1979	Male	1	1	1	1			30		EA					
+65	1984	Male	1	1	1	0			25							
+66	1981	Male	1	0	0	1			28							
+67	1975	Male	1	1	1	1			34							
+68	1976	Femal	e	1	1	1	1		33							
+69	1975	Femal	e	1	1	1	1		34		EA					
+70	1965	Male	1	1	1	1			44		EA					
+71	1971	Male	1	1	1	1			38		EA					
+72	1981	Male	1	0	0	0			28		EA					
+73	1977	Male	1	1	0	1			32		EA					
+74	1977	Femal	e	1	1	1	1		32		EA					
+75	1965	Male	1	0	1	1			44		EA					
+76	1975	Femal	e	1	1	1	1		34		EA					
+77	1974	Male	1	1	0	1			35		EA					
+78	1982	Male	1	1	1	1			27							
+79	1938	Femal	e	1	1	1	1		71		EA					
+80	1973	Male	1	1	1	1			36		EA					
+81	1976	Male	1	0	0	0			33							
+82	1982	Femal	e	1	0	0	0		27							
+83	1982	Male	1	1	1	1			27							
+84	1962	Male	1	1	0	1			47		EA					
+85	1971	Male	1	1	1	1			38							
+86	1954	Male	1	0	0	1			55		EA					
+87	1979	Male	1	0	0	0			30							
+88	1975	Femal	e	1	0	0	0		34							
+89	1981	Male	1	0	0	0			28		EA					
+90	1975	Male	1	1	1	0			34		EA					
+91	1945	Male	1	0	0	1			64							
+92	1978	Femal	e	1	0	0	0		31							
+93	1980	Male	1	0	0	1			29		EA					
+94	1981	Male	1	1	0	0			28							
+95	1977	Male	1	1	1	0			32							
+96	1974	Male	1	0	1	1			35							
+97	1954	Male	1	1	1	1			55		EA					
+98	1972	Male	1	1	0	0			37		EA					
+99	1977	Male	1	1	0	1			32		EA					
+100	1967	Male	1	1	1	1			42		EA					
+101	1979	Male	1	0	0	0			30		EA					
+102	1979	Femal	e	1	1	1	1		30		EA					
+103	1973	Femal	e	1	1	1	1		36		EA					
+104	1968	Male	1	1	1	1			41							
+105	1979	Male	1	1	1	1			30		EA					
+106	1983	Male	1	1	1	1			26		EA					
+107	1977	Male	1	1	1	1			32							
+108	1978	Male	1	1	1	1			31		EA					
+109	1979	Femal	e	1	0	1	0		30		EA					
+110	1987	Male	1	1	1	1			22							
+111	1985	Male	1	1	1	1			24		EA					
+112	1986	Male	1	1	1	1			23		EA					
+113	1981	Male	1	0	1	1			28							
+114	1978	Male	1	0	1	1			31		EA					
+115	1980	Femal	e	1	1	1	1		29		EA					
+116	1975	Male	1	1	1	1			34							
+117	1955	Male	1	1	1	1			54		EA					
+118	1961	Femal	e	1	1	1	1		48		EA					
+119	1981	Male	1	0	0	0			28							
+120	1981	Femal	e	1	0	1	0		28							
+121	1972	Male	1	0	0	0			37							
+122	1981	Male	1	1	1	1			28							
+123	1958	Femal	e	1	1	1	1		51							
+124	1971	Male	1	1	1	1			38		EA					
+125	1978	Male	1	1	1	1			31							
+126	1983	Femal	e	1	1	1	1		26		EA					
+127	1977	Male	1	1	1	1			32		EA					
+128	1974	Male	1	1	1	1			35		EA					
+129	1981	Femal	e	1	1	1	1		28							
+130	1980	Male	1	1	0	1			29							
+131	1980	Femal	e	1	1	1	1		29							
+132	1955	Femal	e	1	1	1	1		54		EA					
+133	1966	Male	1	1	1	1			43							
+134	1983	Femal	e	1	0	0	0		26		EA					
+135	1978	Male	1	0	0	1			31		EA					
+136	1968	Male	1	1	0	1			41		EA					
+137	1981	Male	1	1	1	1			28		EA					
+138	1971	Femal	e	1	1	1	1		38		EA					
+139	1983	Femal	e	1	1	1	1		26		EA					
+140	1984	Femal	e	1	0	0	0		25		EA					
+141	1985	Male	1	0	0	0			24		EA					
+142	1985	Femal	e	1	0	0	0		24		EA					
+143	1979	Male	1	1	1	1			30		EA					
+144	1982	Male	1	0	0	1			27							
+145	1974	Male	1	1	1	1			35		EA					
+146	1978	Male	1	0	0	0			31							
+147	1980	Male	1	0	0	1			29							
+148	1974	Femal	e	1	1	0	1		35							
+149	1976	Male	1	1	1	1			33							
+150	1978	Male	1	1	1	1			31		EA					
+151	1976	Male	1	1	0	1			33		EA					
+152	1985	Male	1	0	0	0			24							
+153	1985	Femal	e	1	1	0	1		24							
+154	1969	Male	1	1	0	0			40							
+155	1983	Male	1	0	0	0			26							
+156	1980	Male	1	1	1	1			29		EA					
+157	1973	Male	1	1	1	1			36		EA					
+158	1971	Femal	e	1	1	1	0		38		EA					
+159	1984	Male	1	1	0	0			25							
+160	1977	Male	1	0	0	0			32		EA					
+161	1976	Femal	e	1	1	1	1		33							
+162	1978	Male	1	0	1	1			31		EA					
+163	1985	Male	1	1	0	0			24							
+164	1985	Male	1	0	0	1			24							
+165	1983	Male	1	0	0	0			26							
+166	1983	Male	1	1	0	0			26		EA					
+167	1985	Femal	e	1	1	1	1		24							
+168	1978	Male	1	1	1	1			31							
+169	1985	Femal	e	1	1	1	1		24		EA					
+170	1955	Femal	e	1	1	1	1		54		EA					
+171	1985	Femal	e	1	0	0	0		24		EA					
+172	1985	Femal	e	1	0	1	1		24		EA					
+173	1984	Male	1	0	0	0			25							
+174	1983	Femal	e	1	0	0	0		26							
+175	1985	Male	1	1	1	1			24		EA					
+176	1984	Male	1	0	0	0			25		EA					
+177	1973	Femal	e	1	1	1	1		36		EA					
+178	1978	Male	1	1	1	1			31		EA					
+179	1986	Male	1	0	0	0			23		EA					
+180	1978	Femal	e	1	0	0	0		31							
+181	1958	Femal	e	1	1	1	1		51		EA					
+182	1983	Femal	e	1	0	0	1		26		EA					
+183	1983	Male	1	0	0	0			26		EA					
+184	1973	Femal	e	1	1	1	1		36		EA					
+185	1985	Male	1	1	1	1			24		EA					
+186	1985	Male	1	1	1	1			24		EA					
+187	1963	Femal	e	1	1	0	0		46		EA					
+188	1982	Male	1	1	1	1			27		EA					
+189	1977	Femal	e	1	0	0	0		32		EA					
+190	1980	Femal	e	1	1	1	1		29		EA					
+191	1980	Male	1	1	1	1			29		EA					
+192	1981	Femal	e	1	1	1	1		28		EA					
+193	1978	Male	1	1	1	1			31		EA					
+194	1976	Male	1	1	1	1			33							
+195	1976	Femal	e	1	0	1	1		33							
+196	1986	Male	1	1	1	1			23		EA					
+197	1985	Male	1	0	0	0			24		EA					
+198	1981	Femal	e	1	1	1	1		28		EA					
+199	1981	Male	1	1	1	1			28							
+200	1985	Male	1	0	0	1			24							
+201	1983	Male	1	0	1	1			26		EA					
+202	1986	Male	1	1	1	1			23							
+203	1985	Male	1	1	1	1			24		EA					
+204	1966	Male	1	1	0	1			43		EA					
+205	1987	Male	1	1	1	1			22		EA					
+206	1987	Male	1	1	0	1			22		EA					
+207	1986	Male	1	1	0	1			23		EA					
+208	1986	Femal	e	1	1	1	1		23							
+209	1986	Femal	e	1	1	1	1		23							
+210	1986	Femal	e	1	1	1	0		23							
+211	1986	Male	1	0	0	0			23							
+212	1982	Male	1	0	0	0			27		EA					
+214	1985	Male	1	0	1	1			24							
+215	1983	Male	1	1	0	0			26		EA					
+216	1979	Femal	e	1	1	0	1		30		EA					
+217	1979	Male	1	1	0	1			30		EA					
+218	1978	Male	1	0	0	0			31		EA					
+219	1979	Male	1	1	1	0			30							
+220	1976	Male	1	1	1	1			33							
+221	1986	Male	1	1	1	0			23		EA					
+222	1986	Male	1	0	1	1			23		EA					
+223	1984	Femal	e	1	1	1	1		25		EA					
+224	1977	Femal	e	1	0	1	1		32							
+225	1986	Male	1	1	1	1			23		EA					
+226	1986	Male	1	0	0	0			23		EA					
+227	1986	Male	1	1	1	1			23		EA					
+228	1985	Male	1	0	1	0			24		EA					
+229	1982	Male	1	1	1	0			27		EA					
+230	1986	Male	1	1	1	1			23		EA					
+231	1984	Male	1	0	0	0			25							
+232	1986	Male	1	0	0	0			23							
+233	1969	Male	1	0	0	0			40		EA					
+234	1978	Male	1	0	0	0			31							
+235	1982	Femal	e	1	1	1	1		27							
+236	1982	Male	1	1	1	1			27		EA					
+237	1979	Femal	e	1	0	0	0		30		EA					
+238	1972	Femal	e	1	0	0	0		37							
+239	1981	Femal	e	1	0	0	0		28		EA					
+240	1980	Male	1	1	1	1			29		EA					
+241	1981	Male	1	1	1	1			28		EA					
+242	1985	Femal	e	1	0	0	0		24		EA					
+243	1985	Male	1	0	0	0			24		EA					
+244	1984	Femal	e	1	0	0	0		25		EA					
+245	1986	Male	1	0	0	0			23		EA					
+246	1949	Male	1	1	1	1			60		EA					
+247	1984	Male	1	0	0	1			25		EA					
+248	1952	Femal	e	1	1	1	1		57		EA					
+249	1983	Male	1	0	0	0			26		EA					
+250	1973	Male	1	1	1	1			36		EA					
+251	1985	Male	0	1	1	1			24		EA					
+252	1947	Male	0	1	1	1			62		EA					
+253	1982	Male	0	1	1	1			27		EA					
+254	1957	ale 0	1	0	1				#VALUE!		EA					
+255	1978	Male	0	1	1	1			31		EA					
+256	1984	Male	0	1	0	0			25		EA					
+257	1988	Femal	e	0	1	0	1		21							
+258	1967	Male	0	1	0	1			42		EA					
+259	1961	Male	0	1	0	0			48							
+260	1960	Male	0	1	0	0			49							
+261	1986	Femal	e	0	1	1	1		23		EA					
+262	1978	Male	0	1	1	1			31		EA					
+263	1982	Femal	e	0	1	1	1		27		EA					
+264	1979	Male	0	1	1	1			30		EA					
+265	1980	Femal	e	0	1	0	1		29		EA					
+266	1986	Male	0	1	1	1			23		EA					
+267	1979	Femal	e	0	1	1	1		30		EA					
+268	1977	Male	0	1	1	0			32		EA					
+269	1981	Male	0	1	0	1			28		EA					
+271	1970	Male	0	1	0	1			39							
+272	1978	Femal	e	0	1	1	1		31		EA					
+273	1983	Male	0	1	1	1			26							
+274	1983	Male	0	1	1	1			26							
+276	1970	Male	0	1	1	1			39							
+277	1978	Femal	e	0	1	1	1		31							
+278	1974	Male	0	1	1	1			35		EA					
+279	1976	Male	0	1	0	0			33		EA					
+280	1979	Femal	e	0	1	0	1		30							
+284	1972	Male	0	1	0	1			37							
+285	1960	Femal	e	0	1	0	0		49		EA					
+286	1985	Femal	e	0	1	1	1		24		EA					
+287	1986	Male	0	1	0	1			23		EA					
+288	1975	Male	0	1	0	0			34							
+289	1987	Male	0	1	1	1			22		EA					
+290	1980	Femal	e	0	1	0	1		29							
+291	1972	Femal	e	0	1	0	0		37		EA					
+292	1974	Femal	e	0	1	0	1		35							
+293	1981	Male	0	0	1	1			28		EA					
+294	1979	Male	0	0	1	1			30		EA					
+295	1975	Male	0	0	1	1			34		EA					
+296	1981	Male	0	0	1	0			28							
+297	1978	Male	0	0	1	1			31							
+298	1980	Male	0	0	1	1			29		EA					
+299	1980	Male	0	0	1	1			29							
+300	1982	Male	0	0	1	1			27		EA					
+301	1981	Male	0	0	1	1			28							
+302	1984	Male	0	0	1	1			25		EA					
+303	1984	Male	0	0	1	0			25		EA					
+304	1979	Male	0	0	1	0			30		EA					
+305	1980	Femal	e	0	0	1	1		29		EA					
+306	1984	Femal	e	0	0	1	1		25							
+308	1979	Male	0	0	1	1			30		EA					
+309	1979	Male	0	0	1	0			30							
+310	1971	Male	0	0	1	1			38		EA					
+311	1974	Male	0	0	1	0			35		EA					
+312	1981	Male	0	0	1	1			28		EA					
+313	1954	Femal	e	0	0	1	1		55		EA					
+314	1980	Male	0	0	1	1			29		EA					
+315	1959	Male	0	0	1	1			50		EA					
+316	1963	Male	0	0	1	1			46		EA					
+317	1979	Male	0	0	1	1			30		EA					
+318	1959	Male	0	0	1	1			50		EA					
+319	1979	Femal	e	0	0	1	0		30							
+320	1982	Femal	e	0	0	1	0		27							
+321	1983	Male	0	0	1	1			26							
+322	1980	Femal	e	0	0	1	1		29		EA					
+323	1980	Male	0	0	1	1			29		EA					
+324	1981	Male	0	0	1	1			28		EA					
+325	1965	Femal	e	0	0	1	0		44		EA					
+326	1980	Femal	e	0	0	1	1		29							
+327	1975	Male	0	0	1	0			34		EA					
+328	1982	Male	0	0	1	0			27		EA					
+329	1986	Male	0	0	1	0			23		EA					
+330	1986	Male	0	0	1	0			23		EA					
+332	1986	Male	0	0	1	0			23							
+333	1979	Femal	e	0	0	1	1		30		EA					
+334	1986	Femal	e	0	0	1	0		23		EA					
+335	1987	Femal	e	0	0	1	1		22							
+336	1978	Femal	e	0	0	1	1		31		EA					
+337	1980	Male	0	0	1	1			29		EA					
+338	1969	Male	0	0	1	0			40		EA					
+339	1980	Femal	e	0	0	1	1		29		EA					
+341	1980	Male	0	0	1	1			29							
+342	1974	Male	0	0	1	1			35							
+343	1974	Male	0	0	1	0			35							
+344	1961	Male	0	0	1	1			48							
+345	1981	Femal	e	0	0	1	1		28							
+346	1981	Male	0	0	1	1			28							

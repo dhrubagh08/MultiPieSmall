@@ -28,11 +28,17 @@ warnings.filterwarnings("ignore")
 f1 = open('QueryExecutionResult.txt','w+')
 
 #dl,nl = pickle.load(open('MuctTestGender6_XY.p','rb'))
-#dl,nl = pickle.load(open('MultiPieTestGender8_XY.p','rb'))
-#dl2,nl2 = pickle.load(open('MultiPieTestExpression8_XY.p','rb'))
+'''
+dl,nl = pickle.load(open('MultiPieTestGender8_XY.p','rb'))
+dl2,nl2 = pickle.load(open('MultiPieTestExpression8_XY.p','rb'))
+dl3,nl3 = pickle.load(open('MultiPieTestAge8_XY.p','rb'))
+'''
 
 dl4,nl4 = pickle.load(open('MultiPieTestGender8_XY.p','rb'))
 dl3,nl3 = pickle.load(open('MultiPieTestExpression8_XY.p','rb'))
+dl5,nl5 = pickle.load(open('MultiPieTestAge8_XY.p','rb'))
+
+
 dl,nl = [],[]
 
 #print>>f1,"gender objects: {}".format(nl)
@@ -40,7 +46,9 @@ dl,nl = [],[]
 
 #dl2=[]
 dl3=[]
+dl5=[]
 sys.setrecursionlimit(1500)
+print 'loading finished'
 
 gender_gnb = pickle.load(open('gender_multipie_gnb_calibrated.p', 'rb'))
 #gender_extraTree = pickle.load(open('gender_multipie_et_calibrated.p', 'rb'))
@@ -71,6 +79,11 @@ expression_dt = joblib.load(open('expression_multi_pie_sgd_log.p', 'rb'))
 
 
 
+age_dt = joblib.load(open('age_multipie_dt_calibrated.p', 'rb'))
+age_gnb = pickle.load(open('age_multipie_gnb_calibrated.p', 'rb'))
+age_rf = pickle.load(open('age_multipie_rf_calibrated.p', 'rb'))
+age_knn = joblib.load(open('age_multipie_knn_calibrated.p', 'rb'))
+
 
 rf_thresholds, gnb_thresholds, et_thresholds,  svm_thresholds = [], [], [] , []
 rf_tprs, gnb_tprs, et_tprs,  svm_tprs = [], [] ,[], []
@@ -85,6 +98,7 @@ nl2= np.array(nl2)
 #listInitial,list0,list1,list2,list3,list01,list02,list03,list12,list13,list23,list012,list013,list023,list123=[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
 listInitial_f1,list0_f1,list1_f1,list2_f1,list3_f1,list01_f1,list02_f1,list03_f1,list12_f1,list13_f1,list23_f1,list012_f1,list013_f1,list023_f1,list123_f1=[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
 listInitial_f2,list0_f2,list1_f2,list2_f2,list3_f2,list01_f2,list02_f2,list03_f2,list12_f2,list13_f2,list23_f2,list012_f2,list013_f2,list023_f2,list123_f2=[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
+listInitial_f3,list0_f3,list1_f3,list2_f3,list3_f3,list01_f3,list02_f3,list03_f3,list12_f3,list13_f3,list23_f3,list012_f3,list013_f3,list023_f3,list123_f3=[],[],[],[],[],[],[],[],[],[],[],[],[],[],[]
 
 
 
@@ -120,7 +134,7 @@ def genderPredicate7(rl):
 	gProbSmile = gProb[:,1]
 	return gProbSmile
 	
-	
+###### Expression Classifiers############	
 def expressionPredicate1(rl):
 	gProb = expression_gnb.predict_proba(rl)
 	gProbGlass = gProb[:,1]
@@ -147,11 +161,39 @@ def expressionPredicate6(rl):
 	gProb = expression_dt.predict_proba(rl)
 	gProbGlass = gProb[:,1]
 	return gProbGlass
-	
+
 def expressionPredicate7(rl):
 	gProb = expression_knn.predict_proba(rl)
 	gProbGlass = gProb[:,1]
 	return gProbGlass
+
+
+###################################################
+
+####### Age classifiers ###########################	
+
+	
+def agePredicate1(rl):
+	gProb = age_gnb.predict_proba(rl)
+	gProbAge = gProb[:,1]
+	return gProbAge
+
+	
+def agePredicate3(rl):
+	gProb = age_rf.predict_proba(rl)
+	gProbAge = gProb[:,1]
+	return gProbAge
+
+	
+def agePredicate6(rl):
+	gProb = age_dt.predict_proba(rl)
+	gProbAge = gProb[:,1]
+	return gProbAge
+	
+def agePredicate7(rl):
+	gProb = age_knn.predict_proba(rl)
+	gProbAge = gProb[:,1]
+	return gProbAge
 	
 	
 
@@ -549,7 +591,193 @@ def setupFeature2():
 				temp1 = [temp[0],temp[1],temp[2]]
 				list123_f2.append(temp1)
 			rowNum = rowNum+1
+
+
+def setupFeature3():
+	included_cols = [0]
+	skipRow= 0	
+	with open('UncertaintyExperiments/Feature3/listInitialDetails.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 1
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				#print content
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				listInitial_f3.append(temp1)
+			rowNum = rowNum+1
+	
+	
+	with open('UncertaintyExperiments/Feature3/list0Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				#print content
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list0_f3.append(temp1)
+			rowNum = rowNum+1
+	
+	with open('UncertaintyExperiments/Feature3/list1Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list1_f3.append(temp1)
+			rowNum = rowNum+1
 			
+	with open('UncertaintyExperiments/Feature3/list2Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list2_f3.append(temp1)
+			rowNum = rowNum+1
+	
+	with open('UncertaintyExperiments/Feature3/list3Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list3_f3.append(temp1)
+			rowNum = rowNum+1
+		
+	with open('UncertaintyExperiments/Feature3/list01Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list01_f3.append(temp1)
+			rowNum = rowNum+1
+		
+	with open('UncertaintyExperiments/Feature3/list02Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list02_f3.append(temp1)
+			rowNum = rowNum+1
+			
+	with open('UncertaintyExperiments/Feature3/list03Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list03_f3.append(temp1)
+			rowNum = rowNum+1
+			
+	with open('UncertaintyExperiments/Feature3/list12Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list12_f3.append(temp1)
+			rowNum = rowNum+1
+		
+	with open('UncertaintyExperiments/Feature3/list13Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list13_f3.append(temp1)
+			rowNum = rowNum+1
+			
+	with open('UncertaintyExperiments/Feature3/list23Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list23_f3.append(temp1)
+			rowNum = rowNum+1
+	
+	with open('UncertaintyExperiments/Feature3/list012Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list012_f3.append(temp1)
+			rowNum = rowNum+1
+			
+	with open('UncertaintyExperiments/Feature3/list013Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list013_f3.append(temp1)
+			rowNum = rowNum+1
+			
+	with open('UncertaintyExperiments/Feature3/list023Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list023_f3.append(temp1)
+			rowNum = rowNum+1
+			
+	with open('UncertaintyExperiments/Feature3/list123Details.csv', 'rb') as csvfile:
+		reader = csv.reader(csvfile, delimiter=' ')
+		rowNum=0
+		endRow = 10
+		for row in reader:
+			content = list(row[i] for i in included_cols)
+			if rowNum >= skipRow and rowNum <= endRow:
+				temp = content[0].split(',')
+				temp1 = [temp[0],temp[1],temp[2]]
+				list123_f3.append(temp1)
+			rowNum = rowNum+1			
 
 	
 def chooseNextBest(prevClassifier,uncertainty,feature):
@@ -653,6 +881,53 @@ def chooseNextBest(prevClassifier,uncertainty,feature):
 	
 	if  (prevClassifier[0] ==1 and prevClassifier[1] ==1  and prevClassifier[2] ==1 and prevClassifier[3] ==1 and feature ==2) :
 		return ['NA',0]
+		
+		
+	# For Feature 3
+	# for objects gone through zero classifiers. This is the initialization stage.
+	
+	if  (prevClassifier[0] ==0 and prevClassifier[1] ==0  and prevClassifier[2] ==0 and prevClassifier[3] ==0 and feature ==3) :
+		uncertaintyList = listInitial_f3
+	
+	# for objects only gone through one classifiers
+	
+	if  (prevClassifier[0] ==1 and prevClassifier[1] ==0  and prevClassifier[2] ==0 and prevClassifier[3] ==0 and feature ==3) :
+		uncertaintyList = list0_f3
+	if  (prevClassifier[0] ==0 and prevClassifier[1] ==1  and prevClassifier[2] ==0 and prevClassifier[3] ==0 and feature ==3) :
+		uncertaintyList = list1_f3
+	if  (prevClassifier[0] ==0 and prevClassifier[1] ==0  and prevClassifier[2] ==1 and prevClassifier[3] ==0 and feature ==3) :
+		uncertaintyList = list2_f3
+	if  (prevClassifier[0] ==0 and prevClassifier[1] ==0  and prevClassifier[2] ==0 and prevClassifier[3] ==1 and feature ==3) :
+		uncertaintyList = list3_f3
+	
+	# for objects gone through two classifiers
+	if  (prevClassifier[0] ==1 and prevClassifier[1] ==1  and prevClassifier[2] ==0 and prevClassifier[3] ==0 and feature ==3) :
+		uncertaintyList = list01_f3
+	if  (prevClassifier[0] ==1 and prevClassifier[1] ==0  and prevClassifier[2] ==1 and prevClassifier[3] ==0 and feature ==3) :
+		uncertaintyList = list02_f3
+	if  (prevClassifier[0] ==1 and prevClassifier[1] ==0  and prevClassifier[2] ==0 and prevClassifier[3] ==1 and feature ==3) :
+		uncertaintyList = list03_f3
+	if  (prevClassifier[0] ==0 and prevClassifier[1] ==1  and prevClassifier[2] ==1 and prevClassifier[3] ==0 and feature ==3) :
+		uncertaintyList = list12_f3
+	if  (prevClassifier[0] ==0 and prevClassifier[1] ==1  and prevClassifier[2] ==0 and prevClassifier[3] ==1 and feature ==3) :
+		uncertaintyList = list13_f3
+	if  (prevClassifier[0] ==0 and prevClassifier[1] ==0  and prevClassifier[2] ==1 and prevClassifier[3] ==1 and feature ==3) :
+		uncertaintyList = list23_f3
+	
+	# for objects gone through three classifiers
+	
+	if  (prevClassifier[0] ==1 and prevClassifier[1] ==1  and prevClassifier[2] ==1 and prevClassifier[3] ==0 and feature ==3) :
+		uncertaintyList = list012_f3
+	if  (prevClassifier[0] ==0 and prevClassifier[1] ==1  and prevClassifier[2] ==1 and prevClassifier[3] ==1 and feature ==3) :
+		uncertaintyList = list123_f3
+	if  (prevClassifier[0] ==1 and prevClassifier[1] ==0  and prevClassifier[2] ==1 and prevClassifier[3] ==1 and feature ==3) :
+		uncertaintyList = list023_f3
+	if  (prevClassifier[0] ==1 and prevClassifier[1] ==1  and prevClassifier[2] ==0 and prevClassifier[3] ==1 and feature ==3) :
+		uncertaintyList = list013_f3
+	
+	if  (prevClassifier[0] ==1 and prevClassifier[1] ==1  and prevClassifier[2] ==1 and prevClassifier[3] ==1 and feature ==3) :
+		return ['NA',0]	
+		
 		
 	#print 'uncertaintyList'
 	#print uncertaintyList
@@ -1044,7 +1319,7 @@ def findUncertainty(prob):
 	
 
 
-def findQuality(currentProbFeature1,currentProbFeature2):
+def findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3):
 	probabilitySet = []
 	probDictionary = {}
 	for i in range(len(dl)):
@@ -1054,7 +1329,8 @@ def findQuality(currentProbFeature1,currentProbFeature2):
 		'''
 		combinedProbability1 = combineProbability(currentProbFeature1[i])	
 		combinedProbability2 = combineProbability(currentProbFeature2[i])
-		jointProb = combinedProbability1 * combinedProbability2
+		combinedProbability3 = combineProbability(currentProbFeature3[i])
+		jointProb = combinedProbability1 * combinedProbability2 * combinedProbability3
 		
 		probabilitySet.append(jointProb)
 		
@@ -1149,12 +1425,12 @@ def findRealF1(imageList):
 	#num_ones = (nl==1).sum()
 	num_ones=0
 	for j in range(len(nl)):
-		if (nl[j]==1 and nl2[j] ==1):
+		if (nl[j]==1 and nl2[j] ==1 and nl3[i]==1):
 			num_ones+=1
 	count = 0
 	#print 'number of ones=%f'%(num_ones)
 	for i in imageList:
-		if (nl[i]==1 and nl2[i] ==1):
+		if (nl[i]==1 and nl2[i] ==1 and nl3[i]==1):
 			#print 'image number=%d'%(i)
 			count+=1
 	precision = float(count)/sizeAnswer
@@ -2233,6 +2509,7 @@ def adaptiveOrder8(timeBudget):
 		
 	set1 = [genderPredicate6,genderPredicate1,genderPredicate3,genderPredicate7]
 	set2 = [expressionPredicate6,expressionPredicate1,expressionPredicate3,expressionPredicate7]
+	set3 = [agePredicate6,agePredicate1,agePredicate3,agePredicate7]
 	
 	print timeBudget
 	outsideObjects=[]
@@ -2242,9 +2519,7 @@ def adaptiveOrder8(timeBudget):
 	
 	
 	
-	#blockList = [200]
-	#blockList = [60]
-	#blockList = [120]
+	
 	#blockList = [300]
 	#blockList = [400] # for 600
 	#blockList = [800]
@@ -2310,6 +2585,15 @@ def adaptiveOrder8(timeBudget):
 			else:
 				currentProbFeature2[key] = [value]
 	
+		currentProbFeature3 = {}
+		for i in range(len(dl)):
+			key = i
+			value = [-1,-1,-1,-1]
+			if key in currentProbFeature3:
+				currentProbFeature3[key].append(value)
+			else:
+				currentProbFeature3[key] = [value]
+	
 	
 		# The dictionary prevClassifier stores the information about previously ran classifiers. Suppose image 20 has gone through c2 and c3. Then the hashmap element of image 20 will be as follows:  20: [0,1,1,0]. 
 		# The bit vector corresponding to classifier 2 and classifier 3 are set.
@@ -2330,14 +2614,26 @@ def adaptiveOrder8(timeBudget):
 				prevClfFeature2[key].append(value)
 			else:
 				prevClfFeature2[key] = [value]
+				
+		prevClfFeature3 = {}
+		for i in range(len(dl)):
+			key = i
+			value = [0,0,0,0]
+			if key in prevClfFeature3:
+				prevClfFeature3[key].append(value)
+			else:
+				prevClfFeature3[key] = [value]
 
 		nextBestClassifierFeature1 = [0]*len(dl)
 		nextBestClassifierFeature2 = [0]*len(dl)
+		nextBestClassifierFeature3 = [0]*len(dl)
 		currentUncertaintyFeature1 = [1]*len(dl)
 		currentUncertaintyFeature2 = [1]*len(dl)
+		currentUncertaintyFeature3 = [1]*len(dl)
 	
 		deltaUncertaintyFeature1 = [0] *len(dl)
 		deltaUncertaintyFeature2 = [0] *len(dl)
+		deltaUncertaintyFeature3 = [0] *len(dl)
 	
 		
 		currentF1measure = 0
@@ -2408,6 +2704,28 @@ def adaptiveOrder8(timeBudget):
 					# using the combined probability value to calculate uncertainty
 					uncertainty = -combinedProbability* np.log2(combinedProbability) - (1- combinedProbability)* np.log2(1- combinedProbability)
 					currentUncertaintyFeature2[i] = uncertainty
+					
+				operator = set3[0]
+				
+				for i in range(len(dl)):
+					
+					probValues = operator([dl[i]])
+					
+					indexClf = set3.index(operator)
+					tempProb = currentProbFeature3[i][0]
+					tempProb[indexClf] = probValues
+					
+					# setting the bit for the corresponding classifier
+					tempClf = prevClfFeature3[i][0]
+					tempClf[indexClf] = 1
+					
+					
+					# calculating the current cobined probability
+					combinedProbability = combineProbability(currentProbFeature3[i])
+					
+					# using the combined probability value to calculate uncertainty
+					uncertainty = -combinedProbability* np.log2(combinedProbability) - (1- combinedProbability)* np.log2(1- combinedProbability)
+					currentUncertaintyFeature3[i] = uncertainty
 				
 				
 				
@@ -2416,7 +2734,7 @@ def adaptiveOrder8(timeBudget):
 				executionTime = executionTime + (t2- t1)
 				#set.remove(genderPredicate8)
 
-				qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+				qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
 				print 'returned images'
 				print qualityOfAnswer[3]
 				print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
@@ -2483,7 +2801,7 @@ def adaptiveOrder8(timeBudget):
 							timeElapsed = timeElapsed +(t12-t11)	
 						
 							if timeElapsed > currentTimeBound:
-								qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+								qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
 		
 								if len(qualityOfAnswer[3]) > 0:
 									realF1 = findRealF1(qualityOfAnswer[3])
@@ -2524,12 +2842,16 @@ def adaptiveOrder8(timeBudget):
 						operator = set2[w]
 						images = [dl[k] for k in imageIndex]
 						if len(imageIndex)!=0:
-							probValues = operator(images)						
+							probValues = operator(images)					
 							#if(totalExecutionTime +totalThinkTime)>timeBudget:
 							#	break
 							for i in range(len(imageIndex)):		
 								t11 = time.time()
-								rocProb = probValues[i]
+								
+								#rocProb = probValues[i]
+								
+								probValues = operator([images[i]])
+								rocProb = probValues
 							
 								#finding index of classifier
 								indexClf = set2.index(operator)
@@ -2556,7 +2878,7 @@ def adaptiveOrder8(timeBudget):
 						
 						
 								if timeElapsed > currentTimeBound:
-									qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+									qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
 		
 									if len(qualityOfAnswer[3]) > 0:
 										realF1 = findRealF1(qualityOfAnswer[3])
@@ -2577,7 +2899,77 @@ def adaptiveOrder8(timeBudget):
 									#break 
 						
 								if timeElapsed > timeBudget:
-									break		
+									break	
+				###### Feature 3 ##########
+				
+				#t11 = time.time()
+				if flag !=1:
+					for w in range(4):
+						tempClf = ['DT','GNB','RF','KNN']
+						## Checking next best classifier value.
+						imageIndex = [item for item in topKIndexes if (nextBestClassifierFeature3[item] == tempClf[w] and featureArray[item] ==3)]
+						# Based on feature value, choosing the operator.
+					
+						operator = set3[w]
+						images = [dl[k] for k in imageIndex]
+						if len(imageIndex)!=0:
+							#probValues = operator(images)						
+							#if(totalExecutionTime +totalThinkTime)>timeBudget:
+							#	break
+							for i in range(len(imageIndex)):		
+								t11 = time.time()
+								#rocProb = probValues[i]
+								probValues = operator([images[i]])
+								rocProb = probValues
+							
+							
+								#finding index of classifier
+								indexClf = set3.index(operator)
+								tempProb = currentProbFeature3[imageIndex[i]][0]
+								tempProb[indexClf] = rocProb
+								#print currentProbability[imageIndex[i]]
+								#if count !=0:
+									#print nextBestClassifier[imageIndex[i]]
+							
+								# setting the bit for the corresponding classifier
+								tempClf = prevClfFeature3[imageIndex[i]][0]
+								tempClf[indexClf] = 1
+							
+								# calculating the current cobined probability
+								combinedProbability = combineProbability(currentProbFeature3[imageIndex[i]])
+							
+								# using the combined probability value to calculate uncertainty
+								uncertainty = -combinedProbability* np.log2(combinedProbability) - (1- combinedProbability)* np.log2(1- combinedProbability)
+								currentUncertaintyFeature3[imageIndex[i]] = uncertainty
+							
+								t12 = time.time()
+								totalExecutionTime = totalExecutionTime + (t12-t11)	
+								timeElapsed = timeElapsed +(t12-t11)	
+						
+						
+								if timeElapsed > currentTimeBound:
+									qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
+		
+									if len(qualityOfAnswer[3]) > 0:
+										realF1 = findRealF1(qualityOfAnswer[3])
+									else: 
+										realF1 = 0
+									#print>>f1,'real F1 : %f'%(realF1)
+									#f1measure = qualityOfAnswer[0]
+									f1measure = realF1
+									timeList.append(timeElapsed)
+									f1List.append(f1measure)
+									#print>>f1,'F1 list : {}'.format(f1List)
+		
+									#print 'time bound completed:%d'%(currentTimeBound)	
+									#print>>f1,'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+									#print 'f1 measure of the answer set: %f, precision:%f, recall:%f, executionTime:%f, thinkTime:%f, timeElapsed:%f '%(f1measure,qualityOfAnswer[1],qualityOfAnswer[2],totalExecutionTime,totalThinkTime,timeElapsed)
+		
+									currentTimeBound = currentTimeBound + stepSize
+									#break 
+						
+								if timeElapsed > timeBudget:
+									break	
 				imageIndex[:]=[]
 				images[:] =[]
 					#probValues[:]=[]
@@ -2643,33 +3035,48 @@ def adaptiveOrder8(timeBudget):
 				[nextBestClassifierFeature2[outsideObjects[j]],deltaUncertaintyFeature2[outsideObjects[j]]] = chooseNextBest(prevClfFeature2.get(outsideObjects[j])[0],currentUncertaintyFeature2[outsideObjects[j]],2)	
 				newUncertaintyValue2 = currentUncertaintyFeature2[outsideObjects[j]]  + float(deltaUncertaintyFeature2[outsideObjects[j]])
 				newProbabilityValue2 = convertEntropyToProb(newUncertaintyValue2)
+				
+				[nextBestClassifierFeature3[outsideObjects[j]],deltaUncertaintyFeature3[outsideObjects[j]]] = chooseNextBest(prevClfFeature3.get(outsideObjects[j])[0],currentUncertaintyFeature3[outsideObjects[j]],3)	
+				newUncertaintyValue3 = currentUncertaintyFeature3[outsideObjects[j]]  + float(deltaUncertaintyFeature3[outsideObjects[j]])
+				newProbabilityValue3 = convertEntropyToProb(newUncertaintyValue3)
 			
-			
+
 				probability1_i = combineProbability(currentProbFeature1[outsideObjects[j]])
 				probability2_i = combineProbability(currentProbFeature2[outsideObjects[j]])
+				probability3_i = combineProbability(currentProbFeature3[outsideObjects[j]])
 			
 				######## Comparing the benefit values ##############
-				jointProbInitial = probability1_i * probability2_i
-				newJointProb1 = newProbabilityValue1 * probability2_i
+				jointProbInitial = probability1_i * probability2_i * probability3_i
+				newJointProb1 = newProbabilityValue1 * probability2_i * probability3_i
 				if 	cost(nextBestClassifierFeature1[outsideObjects[j]]) !=0:			
 					benefit1 = float((newJointProb1*jointProbInitial)/float(cost(nextBestClassifierFeature1[outsideObjects[j]])))
 				else:
 					benefit1 = 0
 				
-				newJointProb2 = probability1_i * newProbabilityValue2
+				newJointProb2 = probability1_i * newProbabilityValue2 * probability3_i
 				if 	cost(nextBestClassifierFeature2[outsideObjects[j]]) !=0:			
 					benefit2 = float((newJointProb2*jointProbInitial)/float(cost(nextBestClassifierFeature2[outsideObjects[j]])))
 				else:
 					benefit2 = 0
+					
+				newJointProb3 = probability1_i * probability2_i * newProbabilityValue3
+				if 	cost(nextBestClassifierFeature3[outsideObjects[j]]) !=0:			
+					benefit3 = float((newJointProb3*jointProbInitial)/float(cost(nextBestClassifierFeature3[outsideObjects[j]])))
+				else:
+					benefit3 = 0
 				
-				if benefit1 > benefit2 : 
+				if benefit1 == max(benefit1,benefit2,benefit3) : 
 					benefit = benefit1
 					feature = 1
-				else:
+				elif benefit2 == max(benefit1,benefit2,benefit3):
 					benefit = benefit2
 					feature = 2
+				else:
+					benefit = benefit3
+					feature = 3
+				
 					
-				if ( cost(nextBestClassifierFeature1[outsideObjects[j]]) or cost(nextBestClassifierFeature2[outsideObjects[j]]) ) != 0:
+				if ( cost(nextBestClassifierFeature1[outsideObjects[j]]) or cost(nextBestClassifierFeature2[outsideObjects[j]]) or cost(nextBestClassifierFeature3[outsideObjects[j]])) != 0:
 					benefitArray[outsideObjects[j]] = benefit
 					featureArray[outsideObjects[j]] = feature
 				else:
@@ -2722,8 +3129,12 @@ def adaptiveOrder8(timeBudget):
 			classifierSet2 = [nextBestClassifierFeature2[item2] for item2 in topKIndexes]
 			#print>>f1,'classifier set 2: {}'.format(classifierSet2)
 			
+			classifierSet3 = [nextBestClassifierFeature3[item2] for item3 in topKIndexes]
+			
+			
+			
 			#print>>f1,'feature array: {}'.format(featureArray)
-			if(all(element1=='NA' for element1 in classifierSet1) and all(element2=='NA' for element2 in classifierSet2) and count > 10):
+			if(all(element1=='NA' for element1 in classifierSet1) and all(element2=='NA' for element2 in classifierSet2)  and all(element3=='NA' for element3 in classifierSet3) and count > 10):
 				break
 			##############################################################################################
 			
@@ -2743,7 +3154,7 @@ def adaptiveOrder8(timeBudget):
 			
 			
 			if timeElapsed > currentTimeBound:
-				qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+				qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
 				#f1measure = qualityOfAnswer[0]
 				if len(qualityOfAnswer[3]) > 0:
 					realF1 = findRealF1(qualityOfAnswer[3])
@@ -3335,6 +3746,10 @@ def baseline3(budget):
 	aucSet2 = [0.51,0.73,0.70,0.68]
 	costSet2 = [0.001,0.018030,0.020180,0.790850]
 	
+	set3 = [agePredicate6,agePredicate1,agePredicate3,agePredicate7]
+	aucSet3 = [0.51,0.73,0.70,0.68]
+	costSet3 = [0.001,0.018030,0.020180,0.790850]
+	
 	
 	count =0
 	
@@ -3355,6 +3770,15 @@ def baseline3(budget):
 			currentProbFeature2[key].append(value)
 		else:
 			currentProbFeature2[key] = [value]	
+			
+	currentProbFeature3 = {}
+	for i in range(len(dl)):
+		key = i
+		value = [-1,-1,-1,-1]
+		if key in currentProbFeature3:
+			currentProbFeature3[key].append(value)
+		else:
+			currentProbFeature3[key] = [value]	
 	
 	
 	t1 = time.time()
@@ -3387,15 +3811,28 @@ def baseline3(budget):
 			# calculating the current cobined probability
 			combinedProbability = combineProbability(currentProbFeature2[i])
 					
+		###### Running the first classifier for feature 2 #############
+		operator = set3[0]			
+				
+		for i in range(len(dl)):
+			probValues = operator([dl[i]])
+			#print>>f1,probValues
+			indexClf = set3.index(operator)
+			tempProb = currentProbFeature3[i][0]
+			tempProb[indexClf] = probValues
+					
+			# calculating the current cobined probability
+			combinedProbability = combineProbability(currentProbFeature3[i])
 			
 	
 	t2 = time.time()
 	executionTime = executionTime + (t2- t1)
 	set1.remove(genderPredicate6)
 	set2.remove(expressionPredicate6)
+	set3.remove(agePredicate6)
 	
 	######## Finding initial quality value ######################	
-	qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+	qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
 	#print 'returned images'
 	#print qualityOfAnswer[3]
 	#print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
@@ -3425,9 +3862,21 @@ def baseline3(budget):
 	aucSet2 = [0.73,0.70,0.68]
 	costSet2 = [0.018030,0.020180,0.790850]
 	
+	
+	
 	benefitSet2 = [ float(aucSet2[i])/costSet2[i] for i in range(len(aucSet2))]
 	#print benefitSet2
 	workflow2 =[x for y, x in sorted(zip(benefitSet2, set2),reverse=True)]
+	#print workflow2
+	
+	
+	set3 = [agePredicate1,agePredicate3,agePredicate7]
+	aucSet3 = [0.73,0.70,0.68]
+	costSet3 = [0.018030,0.020180,0.790850]
+	
+	benefitSet3 = [ float(aucSet3[i])/costSet3[i] for i in range(len(aucSet3))]
+	#print benefitSet2
+	workflow3 =[x for y, x in sorted(zip(benefitSet3, set3),reverse=True)]
 	#print workflow2
 	
 	round = 1
@@ -3443,6 +3892,7 @@ def baseline3(budget):
 		for i in range(len(workflow1)):
 			operator1 = workflow1[i]
 			operator2 = workflow2[i]
+			operator3 = workflow3[i]
 			
 						
 			#rocProb = prob[0]
@@ -3473,11 +3923,25 @@ def baseline3(budget):
 				t12 = time.time()
 				executionTime = executionTime + (t12- t11)
 				
+				
+				#index of classifier
+				t11 = time.time()
+				imageProb = operator3([dl[j]])
+				rocProb = imageProb
+
+				#index of classifier
+				indexClf = set3.index(operator3)
+				tempProb = currentProbFeature3[j][0]
+				tempProb[indexClf] = rocProb
+				
+				t12 = time.time()
+				executionTime = executionTime + (t12- t11)
+				
 			
 			
 			
 				if executionTime > currentTimeBound:
-					qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+					qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
 					#print 'returned images'
 					#print qualityOfAnswer[3]
 					#print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
@@ -3571,6 +4035,11 @@ def baseline4(budget):
 	aucSet2 = [0.51,0.73,0.70,0.68]
 	costSet2 = [0.001,0.018030,0.020180,0.790850]
 	
+	set3 = [agePredicate6,agePredicate1,agePredicate3,agePredicate7]
+	aucSet3 = [0.51,0.73,0.70,0.68]
+	costSet3 = [0.001,0.018030,0.020180,0.790850]
+	
+	
 	
 	print 'size of the dataset:%d'%(len(dl))
 	print 'budget:%d'%(budget)
@@ -3626,15 +4095,29 @@ def baseline4(budget):
 					
 			# calculating the current cobined probability
 			combinedProbability = combineProbability(currentProbFeature2[i])
+			
+		###### Running the first classifier for feature 3 #############
+		operator = set3[0]			
+				
+		for i in range(len(dl)):
+			probValues = operator([dl[i]])
+			#print>>f1,probValues
+			indexClf = set3.index(operator)
+			tempProb = currentProbFeature3[i][0]
+			tempProb[indexClf] = probValues										
+					
+			# calculating the current cobined probability
+			combinedProbability = combineProbability(currentProbFeature3[i])
 		
 	
 	t2 = time.time()
 	executionTime = executionTime + (t2- t1)
 	set1.remove(genderPredicate6)
 	set2.remove(expressionPredicate6)
+	set3.remove(agePredicate6)
 	
 	######## Finding initial quality value ######################	
-	qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+	qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
 	#print 'returned images'
 	#print qualityOfAnswer[3]
 	#print>>f1,'size of answer set : %d'%(len(qualityOfAnswer[3]))
@@ -3658,7 +4141,7 @@ def baseline4(budget):
 	workflow1 =[x for y, x in sorted(zip(benefitSet1, set1),reverse=True)]
 	print workflow1
 	 
-	
+	########################################
 	
 	set2 = [expressionPredicate1,expressionPredicate3,expressionPredicate7]
 	aucSet2 = [0.73,0.70,0.68]
@@ -3668,6 +4151,18 @@ def baseline4(budget):
 	print benefitSet2
 	workflow2 =[x for y, x in sorted(zip(benefitSet2, set2),reverse=True)]
 	print workflow2
+	
+	##########################################
+	
+	set3 = [agePredicate1,agePredicate3,agePredicate7]
+	aucSet3 = [0.73,0.70,0.68]
+	costSet3 = [0.018030,0.020180,0.790850]
+	
+	benefitSet3 = [ float(aucSet3[i])/costSet3[i] for i in range(len(aucSet3))]
+	#print benefitSet2
+	workflow3 =[x for y, x in sorted(zip(benefitSet3, set3),reverse=True)]
+	#print workflow2
+	
 	
 	round = 1
 	
@@ -3725,7 +4220,7 @@ def baseline4(budget):
 				
 				
 				if executionTime > currentTimeBound:
-					qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+					qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
 					#print 'returned images'
 					#print qualityOfAnswer[3]
 					if len(qualityOfAnswer[3]) > 0:
@@ -3817,7 +4312,7 @@ def generateMultipleExecutionResult():
 	#q1_all,q2_all,q3_all = [],[],[]
 	t1_all,q1_all,t2_all,q2_all,t3_all,q3_all=[],[],[],[],[],[]
 	
-	for i in range(40):
+	for i in range(20):
 		global dl,nl,nl2
 		#dl,nl =pickle.load(open('5Samples/MuctTrainGender'+str(i)+'_XY.p','rb'))
 		
@@ -3954,11 +4449,16 @@ if __name__ == '__main__':
 	#adaptiveOrder7(200)
 	setupFeature1()
 	setupFeature2()
+	setupFeature3()
 	#adaptiveOrder8(600)
 	
 	generateMultipleExecutionResult()
-	#baseline3(600)
-	#baseline4(600)
+	'''
+	[t1,q1]=baseline3(600)
+	[t2,q2]=baseline4(600)
+	print q1
+	print q2
+	'''
 	#adaptiveOrder9(400)
 	#runOneClassifier()
 	#adaptiveOrder9(400)	
