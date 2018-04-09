@@ -1412,6 +1412,7 @@ def findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3):
 
 def determineWeights():
 	#set = [0.85,0.92,0.92,0.89]
+	#set = [1,2,2,1]
 	set = [1,2,2,1]
 	sumValue = sum(set)
 	weightValues = [float(x)/sumValue for x in set]
@@ -1425,17 +1426,21 @@ def findRealF1(imageList):
 	#num_ones = (nl==1).sum()
 	num_ones=0
 	for j in range(len(nl)):
-		if (nl[j]==1 and nl2[j] ==1 and nl3[i]==1):
+		if (nl[j]==1 and nl2[j] ==1 and nl3[j]==1):
 			num_ones+=1
 	count = 0
-	#print 'number of ones=%f'%(num_ones)
+	print 'number of ones=%f'%(num_ones)
 	for i in imageList:
 		if (nl[i]==1 and nl2[i] ==1 and nl3[i]==1):
 			#print 'image number=%d'%(i)
 			count+=1
-	precision = float(count)/sizeAnswer
-	recall = float(count)/num_ones
+	print 'correct number of ones=%f'%(count)
 	
+	precision = float(count)/sizeAnswer
+	if num_ones >0:
+		recall = float(count)/num_ones
+	else:
+		recall =0
 	if precision !=0 and recall !=0:
 		f1Measure = (2*precision*recall)/(precision+recall)
 	else:
@@ -2523,8 +2528,10 @@ def adaptiveOrder8(timeBudget):
 	#blockList = [300]
 	#blockList = [400] # for 600
 	#blockList = [800]
-	blockList = [600]
+	#blockList = [600]
 	#blockList = [60]
+	#blockList = [100]
+	blockList = [300]
 	executionPerformed = 0
 	thinkTimeList = []
 	executionTimeList = []
@@ -2993,7 +3000,7 @@ def adaptiveOrder8(timeBudget):
 			# calculating benefit of each objects. Benefit is measured in terms of improvement in f1 measure.
 			t21 = time.time()
 			# first determining the objects which are not in answer set
-			qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+			qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
 			currentAnswerSet = qualityOfAnswer[3]
 			allObjects = list(range(0,len(dl)))
 			
@@ -3009,6 +3016,8 @@ def adaptiveOrder8(timeBudget):
 			print>>f1,"state of inside objects for feature 1: {}".format(stateListInside1)
 			stateListInside2 = findStates(currentAnswerSet,prevClfFeature2)
 			print>>f1,"state of inside objects for feature 2: {}".format(stateListInside2)
+			stateListInside3 = findStates(currentAnswerSet,prevClfFeature3)
+			print>>f1,"state of inside objects for feature 3: {}".format(stateListInside3)
 			
 			
 			print>>f1,"outsideObjects : {} ".format(outsideObjects)
@@ -3017,6 +3026,10 @@ def adaptiveOrder8(timeBudget):
 			print>>f1,"state of outside objects for feature 1 : {}".format(stateListOutside1)
 			stateListOutside2 = findStates(outsideObjects,prevClfFeature2)
 			print>>f1,"state of outside objects for feature 2 : {}".format(stateListOutside2)
+			stateListOutside3 = findStates(outsideObjects,prevClfFeature3)
+			print>>f1,"state of outside objects for feature 3 : {}".format(stateListOutside3)
+			
+			
 			flag = 0
 			
 			if(len(outsideObjects)==0):
@@ -4063,6 +4076,15 @@ def baseline4(budget):
 			currentProbFeature2[key].append(value)
 		else:
 			currentProbFeature2[key] = [value]	
+			
+	currentProbFeature3 = {}
+	for i in range(len(dl)):
+		key = i
+		value = [-1,-1,-1,-1]
+		if key in currentProbFeature3:
+			currentProbFeature3[key].append(value)
+		else:
+			currentProbFeature3[key] = [value]	
 	
 	
 	
@@ -4177,7 +4199,6 @@ def baseline4(budget):
 		for j in range(len(dl)):
 				#imageProb = probValues[j]
 			for i in range(3):
-			
 				### Running function of feature 1 ###
 				operator1 = workflow1[i]
 				t11 = time.time()
@@ -4217,6 +4238,26 @@ def baseline4(budget):
 				
 				executionTime = executionTime + (t12- t11)
 				
+				### Running function of feature 3 ###
+				#if rocProb >0.6:
+				operator3 = workflow3[i]
+				t11 = time.time()
+				imageProb = operator3([dl[j]])
+				t12 = time.time()
+				rocProb = imageProb
+				
+
+				#print 'image:%d'%(j)
+				#print("Roc Prob : {} ".format(rocProb))
+				
+				#index of classifier
+				indexClf = set3.index(operator3)
+				tempProb = currentProbFeature3[j][0]
+				tempProb[indexClf] = rocProb
+			
+				
+				executionTime = executionTime + (t12- t11)
+				
 				
 				
 				if executionTime > currentTimeBound:
@@ -4240,12 +4281,14 @@ def baseline4(budget):
 				if executionTime > budget:
 						break
 			
+			if executionTime > budget:
+					break
 			round = round + 1
 			
 				
 		t2 = time.time()
 		timeElapsed = t2-t1
-		qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2)
+		qualityOfAnswer = findQuality(currentProbFeature1,currentProbFeature2,currentProbFeature3)
 		f1measure = qualityOfAnswer[0]
 		
 		# store the time values and F1 values
@@ -4312,11 +4355,11 @@ def generateMultipleExecutionResult():
 	#q1_all,q2_all,q3_all = [],[],[]
 	t1_all,q1_all,t2_all,q2_all,t3_all,q3_all=[],[],[],[],[],[]
 	
-	for i in range(20):
+	for i in range(5):
 		global dl,nl,nl2
 		#dl,nl =pickle.load(open('5Samples/MuctTrainGender'+str(i)+'_XY.p','rb'))
 		
-		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 750))]
+		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 500))]
 		
 		dl_test = [dl4[i1] for i1 in  imageIndex]
 		nl_test = [nl4[i1] for i1 in imageIndex]
@@ -4327,9 +4370,9 @@ def generateMultipleExecutionResult():
 		dl = np.array(dl_test)
 		nl = np. array(nl_test)
 		nl2 = np. array(nl_test2)
-		[t1,q1]=baseline3(120)
-		[t2,q2] =baseline4(120)
-		[t3,q3] =adaptiveOrder8(120)
+		[t1,q1]=baseline3(40)
+		[t2,q2] =baseline4(40)
+		[t3,q3] =adaptiveOrder8(40)
 		t1_all.append(t1)
 		t2_all.append(t2)
 		t3_all.append(t3)
@@ -4376,8 +4419,8 @@ def generateMultipleExecutionResult():
            
 	plt.ylabel('F1-measure')
 	plt.xlabel('Cost')	
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_750_obj_120sec.png', format='png')
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multi_feature_750_obj_120sec.eps', format='eps')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_three_feature_750_obj_120sec.png', format='png')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_three_feature_750_obj_120sec.eps', format='eps')
 		#plt.show()
 	plt.close()
 	
@@ -4418,8 +4461,8 @@ def generateMultipleExecutionResult():
 	plt.xlabel('Cost')
 	#plt.ylim([0, 1])
 	plt.xlim([0, max(max(t1),max(t2),max(t3))])	
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_750_obj_gain.png', format='png')
-	plt.savefig('PlotQualityComparisonMultiPieBaseline_multifeature_750_obj_gain.eps', format='eps')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_three_feature_750_obj_gain.png', format='png')
+	plt.savefig('PlotQualityComparisonMultiPieBaseline_three_feature_750_obj_gain.eps', format='eps')
 		#plt.show()
 	plt.close()
 
