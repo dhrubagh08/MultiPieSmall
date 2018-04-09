@@ -2506,7 +2506,7 @@ def adaptiveOrder8(timeBudget):
 	#3:Random Forest
 	#4:Adaptive Boosting
 	
-	f1 = open('queryTestMultiFeatureMuct8.txt','w+')
+	f1 = open('queryTestThreeFeatureMuct8.txt','w+')
 
 	#lr,et,rf,ab
 	
@@ -2531,7 +2531,8 @@ def adaptiveOrder8(timeBudget):
 	#blockList = [600]
 	#blockList = [60]
 	#blockList = [100]
-	blockList = [300]
+	blockList = [200]
+	#blockList = [300]
 	executionPerformed = 0
 	thinkTimeList = []
 	executionTimeList = []
@@ -4359,7 +4360,7 @@ def generateMultipleExecutionResult():
 		global dl,nl,nl2
 		#dl,nl =pickle.load(open('5Samples/MuctTrainGender'+str(i)+'_XY.p','rb'))
 		
-		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 500))]
+		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 250))]
 		
 		dl_test = [dl4[i1] for i1 in  imageIndex]
 		nl_test = [nl4[i1] for i1 in imageIndex]
@@ -4370,9 +4371,9 @@ def generateMultipleExecutionResult():
 		dl = np.array(dl_test)
 		nl = np. array(nl_test)
 		nl2 = np. array(nl_test2)
-		[t1,q1]=baseline3(40)
-		[t2,q2] =baseline4(40)
-		[t3,q3] =adaptiveOrder8(40)
+		[t1,q1]=baseline3(60)
+		[t2,q2] =baseline4(60)
+		[t3,q3] =adaptiveOrder8(60)
 		t1_all.append(t1)
 		t2_all.append(t2)
 		t3_all.append(t3)
