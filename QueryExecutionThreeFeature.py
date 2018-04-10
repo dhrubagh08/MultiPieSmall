@@ -2531,8 +2531,9 @@ def adaptiveOrder8(timeBudget):
 	#blockList = [600]
 	#blockList = [60]
 	#blockList = [100]
-	blockList = [200]
+	#blockList = [200]
 	#blockList = [300]
+	blockList = [600]
 	executionPerformed = 0
 	thinkTimeList = []
 	executionTimeList = []
@@ -4356,11 +4357,11 @@ def generateMultipleExecutionResult():
 	#q1_all,q2_all,q3_all = [],[],[]
 	t1_all,q1_all,t2_all,q2_all,t3_all,q3_all=[],[],[],[],[],[]
 	
-	for i in range(5):
+	for i in range(40):
 		global dl,nl,nl2
 		#dl,nl =pickle.load(open('5Samples/MuctTrainGender'+str(i)+'_XY.p','rb'))
 		
-		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 250))]
+		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl4)), 750))]
 		
 		dl_test = [dl4[i1] for i1 in  imageIndex]
 		nl_test = [nl4[i1] for i1 in imageIndex]
