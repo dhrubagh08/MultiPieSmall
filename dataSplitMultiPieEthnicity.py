@@ -142,13 +142,13 @@ def getMultiPieValidationData2():
 	
 		
 	count1 = 0 
-	with open('MaleList.csv', 'rb') as f:
+	with open('EthnicityAmerican.csv', 'rb') as f:
 		f.next()	# to remove the header of csv file
 		reader = csv.reader(f)
 		male_list = [[int(x) for x in rec] for rec in reader]
 		#male_list = list(reader)
 				
-	with open('FemaleList.csv', 'rb') as f:
+	with open('EthnicityNonAmerican.csv', 'rb') as f:
 		f.next() 	
 		reader = csv.reader(f)
 		female_list = [[int(x) for x in rec] for rec in reader]

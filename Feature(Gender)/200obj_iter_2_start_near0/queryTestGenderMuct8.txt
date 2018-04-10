@@ -1,0 +1,41 @@
+time bound completed:20
+<function genderPredicate6 at 0x110625578>
+<function genderPredicate1 at 0x110625410>
+<function genderPredicate3 at 0x110625500>
+<function genderPredicate7 at 0x1106255f0>
+<function genderPredicate6 at 0x110625578>
+<function genderPredicate1 at 0x110625410>
+<function genderPredicate3 at 0x110625500>
+<function genderPredicate7 at 0x1106255f0>
+<function genderPredicate6 at 0x110625578>
+<function genderPredicate1 at 0x110625410>
+<function genderPredicate3 at 0x110625500>
+<function genderPredicate7 at 0x1106255f0>
+real F1 : 0.812227
+f1 measure of the answer set: 0.812227, precision:0.764306, recall:0.873522, executionTime:20.492971, thinkTime:0.054223, timeElapsed:20.547194 
+<function genderPredicate6 at 0x110625578>
+<function genderPredicate1 at 0x110625410>
+<function genderPredicate3 at 0x110625500>
+real F1 : 0.812227
+f1 measure of the answer set: 0.812227, precision:0.750188, recall:0.871447, executionTime:29.993323, thinkTime:0.073301, timeElapsed:30.066624 
+<function genderPredicate7 at 0x1106255f0>
+real F1 : 0.812227
+f1 measure of the answer set: 0.812227, precision:0.746250, recall:0.870857, executionTime:40.231292, thinkTime:0.073301, timeElapsed:40.304593 
+real F1 : 0.812227
+f1 measure of the answer set: 0.812227, precision:0.743459, recall:0.870435, executionTime:49.984901, thinkTime:0.073301, timeElapsed:50.058202 
+real F1 : 0.823009
+f1 measure of the answer set: 0.823009, precision:0.741037, recall:0.860033, executionTime:60.406055, thinkTime:0.073301, timeElapsed:60.479356 
+real F1 : 0.845455
+f1 measure of the answer set: 0.845455, precision:0.740317, recall:0.839540, executionTime:70.545230, thinkTime:0.073301, timeElapsed:70.618531 
+<function genderPredicate6 at 0x110625578>
+<function genderPredicate1 at 0x110625410>
+<function genderPredicate3 at 0x110625500>
+real F1 : 0.865116
+f1 measure of the answer set: 0.865116, precision:0.737111, recall:0.823739, executionTime:80.046899, thinkTime:0.093959, timeElapsed:80.140858 
+<function genderPredicate7 at 0x1106255f0>
+real F1 : 0.902913
+f1 measure of the answer set: 0.902913, precision:0.771101, recall:0.801909, executionTime:90.345812, thinkTime:0.093959, timeElapsed:90.439771 
+real F1 : 0.916256
+f1 measure of the answer set: 0.916256, precision:0.779773, recall:0.804738, executionTime:100.062371, thinkTime:0.093959, timeElapsed:100.156329 
+x value : [0, 20.54719352722168, 30.0666241645813, 40.304593324661255, 50.05820178985596, 60.479355573654175, 70.61853051185608, 80.1408576965332, 90.43977093696594, 100.15632939338684] 
+y value : [0, 0.8122270742358079, 0.8122270742358079, 0.8122270742358079, 0.8122270742358079, 0.8230088495575222, 0.8454545454545455, 0.8651162790697675, 0.9029126213592232, 0.916256157635468] 

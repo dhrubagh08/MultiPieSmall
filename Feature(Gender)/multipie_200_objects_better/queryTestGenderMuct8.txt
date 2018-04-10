@@ -1,0 +1,33 @@
+time bound completed:20
+<function genderPredicate6 at 0x10cb5a578>
+<function genderPredicate1 at 0x10cb5a410>
+<function genderPredicate3 at 0x10cb5a500>
+<function genderPredicate7 at 0x10cb5a5f0>
+<function genderPredicate6 at 0x10cb5a578>
+<function genderPredicate1 at 0x10cb5a410>
+<function genderPredicate3 at 0x10cb5a500>
+<function genderPredicate7 at 0x10cb5a5f0>
+<function genderPredicate6 at 0x10cb5a578>
+<function genderPredicate1 at 0x10cb5a410>
+<function genderPredicate3 at 0x10cb5a500>
+<function genderPredicate7 at 0x10cb5a5f0>
+real F1 : 0.847458
+f1 measure of the answer set: 0.847458, precision:0.772125, recall:0.870003, executionTime:20.404104, thinkTime:0.053047, timeElapsed:20.457150 
+real F1 : 0.858369
+f1 measure of the answer set: 0.858369, precision:0.778769, recall:0.868467, executionTime:30.103889, thinkTime:0.053047, timeElapsed:30.156936 
+real F1 : 0.854701
+f1 measure of the answer set: 0.854701, precision:0.767501, recall:0.873238, executionTime:39.960639, thinkTime:0.053047, timeElapsed:40.013686 
+real F1 : 0.862069
+f1 measure of the answer set: 0.862069, precision:0.770527, recall:0.871074, executionTime:50.155247, thinkTime:0.053047, timeElapsed:50.208294 
+real F1 : 0.869565
+f1 measure of the answer set: 0.869565, precision:0.770244, recall:0.868409, executionTime:60.385052, thinkTime:0.053047, timeElapsed:60.438099 
+real F1 : 0.873362
+f1 measure of the answer set: 0.873362, precision:0.763360, recall:0.869831, executionTime:70.392035, thinkTime:0.053047, timeElapsed:70.445082 
+real F1 : 0.892857
+f1 measure of the answer set: 0.892857, precision:0.766784, recall:0.856684, executionTime:80.289163, thinkTime:0.053047, timeElapsed:80.342210 
+real F1 : 0.900901
+f1 measure of the answer set: 0.900901, precision:0.765661, recall:0.854575, executionTime:90.090242, thinkTime:0.053047, timeElapsed:90.143289 
+real F1 : 0.900901
+f1 measure of the answer set: 0.900901, precision:0.755267, recall:0.856451, executionTime:100.111764, thinkTime:0.053047, timeElapsed:100.164811 
+x value : [0, 20.45715045928955, 30.156936407089233, 40.013686418533325, 50.2082941532135, 60.438098669052124, 70.44508242607117, 80.34220957756042, 90.14328861236572, 100.16481065750122] 
+y value : [0.7038327526132404, 0.847457627118644, 0.8583690987124465, 0.8547008547008548, 0.8620689655172413, 0.8695652173913044, 0.8733624454148472, 0.8928571428571429, 0.9009009009009008, 0.9009009009009008] 

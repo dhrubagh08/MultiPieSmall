@@ -1,0 +1,123 @@
+time bound completed:4
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+<function genderPredicate7 at 0x101af8668>
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+<function genderPredicate7 at 0x101af8668>
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+<function genderPredicate7 at 0x101af8668>
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.801732, recall:0.857868, executionTime:12.710983, thinkTime:0.030053, timeElapsed:12.741036 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.799916, recall:0.857591, executionTime:13.174412, thinkTime:0.030053, timeElapsed:13.204465 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.794515, recall:0.856762, executionTime:13.668289, thinkTime:0.030053, timeElapsed:13.698342 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.792698, recall:0.856481, executionTime:14.163594, thinkTime:0.030053, timeElapsed:14.193647 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.793271, recall:0.856569, executionTime:14.655281, thinkTime:0.030053, timeElapsed:14.685334 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.790259, recall:0.856101, executionTime:15.206669, thinkTime:0.030053, timeElapsed:15.236722 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.790210, recall:0.856094, executionTime:16.266360, thinkTime:0.030053, timeElapsed:16.296413 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.778165, recall:0.854191, executionTime:18.276073, thinkTime:0.030053, timeElapsed:18.306126 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.774768, recall:0.853645, executionTime:20.316623, thinkTime:0.030053, timeElapsed:20.346676 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.767882, recall:0.852526, executionTime:22.334316, thinkTime:0.030053, timeElapsed:22.364369 
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.760821, recall:0.851361, executionTime:24.045602, thinkTime:0.039471, timeElapsed:24.085073 
+<function genderPredicate7 at 0x101af8668>
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.762791, recall:0.851688, executionTime:26.165703, thinkTime:0.039471, timeElapsed:26.205174 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.747768, recall:0.849158, executionTime:28.185898, thinkTime:0.039471, timeElapsed:28.225369 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.743725, recall:0.848462, executionTime:30.122453, thinkTime:0.039471, timeElapsed:30.161924 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.739703, recall:0.847764, executionTime:32.096664, thinkTime:0.039471, timeElapsed:32.136135 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.733567, recall:0.846685, executionTime:34.020770, thinkTime:0.039471, timeElapsed:34.060241 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.722811, recall:0.844758, executionTime:36.427559, thinkTime:0.039471, timeElapsed:36.467030 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.723709, recall:0.844921, executionTime:37.969989, thinkTime:0.039471, timeElapsed:38.009460 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.722462, recall:0.844695, executionTime:40.007980, thinkTime:0.039471, timeElapsed:40.047451 
+real F1 : 0.918033
+f1 measure of the answer set: 0.918033, precision:0.715151, recall:0.843356, executionTime:42.011117, thinkTime:0.039471, timeElapsed:42.050587 
+real F1 : 0.907563
+f1 measure of the answer set: 0.907563, precision:0.730512, recall:0.825492, executionTime:44.476846, thinkTime:0.039471, timeElapsed:44.516317 
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+real F1 : 0.905983
+f1 measure of the answer set: 0.905983, precision:0.737065, recall:0.813755, executionTime:46.027870, thinkTime:0.051903, timeElapsed:46.079773 
+real F1 : 0.905983
+f1 measure of the answer set: 0.905983, precision:0.723107, recall:0.810840, executionTime:47.967157, thinkTime:0.051903, timeElapsed:48.019060 
+real F1 : 0.905983
+f1 measure of the answer set: 0.905983, precision:0.716675, recall:0.809465, executionTime:50.028733, thinkTime:0.051903, timeElapsed:50.080636 
+real F1 : 0.915254
+f1 measure of the answer set: 0.915254, precision:0.725964, recall:0.819201, executionTime:52.103017, thinkTime:0.051903, timeElapsed:52.154920 
+<function genderPredicate7 at 0x101af8668>
+real F1 : 0.923077
+f1 measure of the answer set: 0.923077, precision:0.731008, recall:0.814487, executionTime:54.059974, thinkTime:0.051903, timeElapsed:54.111877 
+real F1 : 0.923077
+f1 measure of the answer set: 0.923077, precision:0.731008, recall:0.821849, executionTime:56.074423, thinkTime:0.051903, timeElapsed:56.126326 
+real F1 : 0.923077
+f1 measure of the answer set: 0.923077, precision:0.731008, recall:0.828841, executionTime:58.148478, thinkTime:0.051903, timeElapsed:58.200381 
+real F1 : 0.923077
+f1 measure of the answer set: 0.923077, precision:0.731008, recall:0.835599, executionTime:60.104460, thinkTime:0.051903, timeElapsed:60.156363 
+real F1 : 0.923077
+f1 measure of the answer set: 0.923077, precision:0.731008, recall:0.840986, executionTime:62.129527, thinkTime:0.051903, timeElapsed:62.181430 
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+real F1 : 0.915254
+f1 measure of the answer set: 0.915254, precision:0.725285, recall:0.840037, executionTime:64.014943, thinkTime:0.062262, timeElapsed:64.077205 
+real F1 : 0.915254
+f1 measure of the answer set: 0.915254, precision:0.725285, recall:0.827047, executionTime:66.033466, thinkTime:0.062262, timeElapsed:66.095728 
+<function genderPredicate7 at 0x101af8668>
+real F1 : 0.915254
+f1 measure of the answer set: 0.915254, precision:0.725285, recall:0.832090, executionTime:68.111314, thinkTime:0.062262, timeElapsed:68.173576 
+real F1 : 0.915254
+f1 measure of the answer set: 0.915254, precision:0.725285, recall:0.838162, executionTime:70.146413, thinkTime:0.062262, timeElapsed:70.208675 
+real F1 : 0.915254
+f1 measure of the answer set: 0.915254, precision:0.725285, recall:0.844086, executionTime:72.229240, thinkTime:0.062262, timeElapsed:72.291502 
+real F1 : 0.915254
+f1 measure of the answer set: 0.915254, precision:0.725285, recall:0.849790, executionTime:74.328954, thinkTime:0.062262, timeElapsed:74.391216 
+real F1 : 0.915254
+f1 measure of the answer set: 0.915254, precision:0.725285, recall:0.851620, executionTime:76.352052, thinkTime:0.062262, timeElapsed:76.414314 
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+real F1 : 0.915254
+f1 measure of the answer set: 0.915254, precision:0.725285, recall:0.842320, executionTime:78.063872, thinkTime:0.073119, timeElapsed:78.136991 
+<function genderPredicate7 at 0x101af8668>
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+<function genderPredicate7 at 0x101af8668>
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+<function genderPredicate7 at 0x101af8668>
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+<function genderPredicate7 at 0x101af8668>
+<function genderPredicate6 at 0x101af85f0>
+<function genderPredicate1 at 0x101af8488>
+<function genderPredicate3 at 0x101af8578>
+<function genderPredicate7 at 0x101af8668>
+x value : [0, 12.74103569984436, 13.204464673995972, 13.698341846466064, 14.193646907806396, 14.685333967208862, 15.236721992492676, 16.2964129447937, 18.30612587928772, 20.346675634384155, 22.36436939239502, 24.08507251739502, 26.20517373085022, 28.225368976593018, 30.161924123764038, 32.13613533973694, 34.060240745544434, 36.46702980995178, 38.00945973396301, 40.04745078086853, 42.05058741569519, 44.516316652297974, 46.07977271080017, 48.019059896469116, 50.08063578605652, 52.15492033958435, 54.11187720298767, 56.12632632255554, 58.2003812789917, 60.156362533569336, 62.181429624557495, 64.07720470428467, 66.09572839736938, 68.17357563972473, 70.20867466926575, 72.29150176048279, 74.39121603965759, 76.41431403160095, 78.13699126243591] 
+y value : [0, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9180327868852459, 0.9075630252100839, 0.905982905982906, 0.905982905982906, 0.905982905982906, 0.9152542372881356, 0.9230769230769231, 0.9230769230769231, 0.9230769230769231, 0.9230769230769231, 0.9230769230769231, 0.9152542372881356, 0.9152542372881356, 0.9152542372881356, 0.9152542372881356, 0.9152542372881356, 0.9152542372881356, 0.9152542372881356, 0.9152542372881356] 

@@ -2043,9 +2043,9 @@ def adaptiveOrder8(timeBudget):
 	# optimal block size = 400 for 1000 objects
 	#blockList = [20] 	#for 100 objects
 	#blockList = [300]
-	#blockList = [120]
+	blockList = [120]
 	#blockList = [300]
-	blockList = [200]
+	#blockList = [200]
 	
 	
 	
@@ -2169,7 +2169,7 @@ def adaptiveOrder8(timeBudget):
 				f1measure = realF1
 				timeList.append(0)
 				f1List.append(f1measure)
-				currentTimeBound = currentTimeBound + stepSize
+				#currentTimeBound = currentTimeBound + stepSize
 				print>>f1,'time bound completed:%d'%(currentTimeBound)
 	
 	
@@ -3146,7 +3146,7 @@ def baseline3(budget):
 	f1measure = realF1
 	timeList.append(0)
 	f1List.append(f1measure)
-	currentTimeBound = currentTimeBound + stepSize
+	#currentTimeBound = currentTimeBound + stepSize
 	#print>>f1,'time bound completed:%d'%(currentTimeBound)
 	
 	
@@ -3389,7 +3389,7 @@ def baseline4(budget):
 	f1measure = realF1
 	timeList.append(0)
 	f1List.append(f1measure)
-	currentTimeBound = currentTimeBound + stepSize
+	#currentTimeBound = currentTimeBound + stepSize
 	#print>>f1,'time bound completed:%d'%(currentTimeBound)
 	
 	
@@ -3678,7 +3678,7 @@ def generateMultipleExecutionResult():
 		global dl,nl 
 		#dl,nl =pickle.load(open('5Samples/MuctTrainGender'+str(i)+'_XY.p','rb'))
 		
-		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl2)), 1000))]
+		imageIndex = [i1 for i1 in sorted(random.sample(xrange(len(dl2)), 750))]
 		dl_test = [dl2[i1] for i1 in  imageIndex]
 		nl_test = [nl2[i1] for i1 in imageIndex]
 	
@@ -3771,7 +3771,7 @@ def generateMultipleExecutionResult():
 	plt.title('Quality vs Cost')
 	plt.legend(bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
            ncol=2, mode="expand", borderaxespad=0.,fontsize='medium')
-	plt.ylabel('F1-measure')
+	plt.ylabel('Gain')
 	plt.xlabel('Cost')
 	#plt.ylim([0, 1])
 	plt.xlim([0, max(max(t1),max(t2),max(t3))])	
